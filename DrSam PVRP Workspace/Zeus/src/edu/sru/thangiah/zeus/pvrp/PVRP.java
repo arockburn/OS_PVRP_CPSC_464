@@ -1,25 +1,13 @@
 package edu.sru.thangiah.zeus.pvrp;
 
 
+import java.io.IOException;
 import java.io.*;
 import java.util.*;
 
-import edu.sru.thangiah.zeus.Zeus;
 import edu.sru.thangiah.zeus.core.*;
 import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList.*;
-import edu.sru.thangiah.zeus.pvrp.pvrpnodeslinkedlist.*;
 import edu.sru.thangiah.zeus.pvrp.pvrpqualityassurance.*;
-import edu.sru.thangiah.zeus.gui.*;
-import edu.sru.thangiah.zeus.vrp.VRPDepot;
-import edu.sru.thangiah.zeus.vrp.VRPDepotLinkedList;
-import sun.dc.pr.PRError;
-
-import java.io.*;
-import java.util.*;
-
-import edu.sru.thangiah.zeus.core.*;
-import edu.sru.thangiah.zeus.vrp.vrpqualityassurance.*;
-import edu.sru.thangiah.zeus.gui.*;
 
 /**
  * Created by joshuasarver on 9/13/2014.
@@ -48,7 +36,7 @@ public class PVRP  {
     private PVRPShipmentLinkedList mainShipments = new PVRPShipmentLinkedList(); //customers read in from a file or database that are available
     private PVRPDepotLinkedList mainDepots = new PVRPDepotLinkedList(); //linked list for depots
     private PVRPQualityAssurance pvrpQA; //checks our solution for good data
-	private PVRPExcel excelReader;
+	//private PVRPExcel__OLD excelReader;
 	private PVRPExcelReadWrite excel = new PVRPExcelReadWrite();
 
 
@@ -58,10 +46,11 @@ public class PVRP  {
 	public PVRP(String excelDataInput) throws IOException
 	{
 		excel.excelReader(excelDataInput, mainShipments);
+		/*for(int i = 0; i < mainShipments.mainShips.size(); i++){
+			System.out.println(mainShipments.mainShips.get(i));
+		}
 		
-		Shipment ship = mainShipments.find(59);
-		System.out.println(ship.getIndex());
-		
+		excel.excelWriter(mainShipments.mainShips);*/
 
 		//Various truck types will be placed into vector (we should only have one type...may be able to trash the vector)
 		//ProblemInfo.truckTypes = new Vector();

@@ -40,13 +40,13 @@ import javax.lang.model.type.NullType;
 
 
 
-public class PVRPExcel
+public class PVRPExcel__OLD
 {
 	//private PVRPShipmentLinkedList mainShipments = new PVRPShipmentLinkedList(); //customers read in from a file or database that are available
 	public String inputPath = "";
 	public String outputPath = "";
 
-	public PVRPExcel(String relativeInputPath, String relativeOutputPath)
+	public PVRPExcel__OLD(String relativeInputPath, String relativeOutputPath)
 	{
 
 		inputPath = relativeInputPath;
