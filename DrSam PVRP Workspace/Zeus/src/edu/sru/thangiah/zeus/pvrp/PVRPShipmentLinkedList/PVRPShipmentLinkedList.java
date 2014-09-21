@@ -49,7 +49,7 @@ public class PVRPShipmentLinkedList
 
 
 	
-	public void insertShipment(int index, int x, int y, int d, int freq, int combination, ){
+	public void insertShipment(int node, double x, double y, double DUMMY, int demandQ, int frequency, int numberCombos, int[] comboList, int[][] currentCombo){
 		
 	}
 		

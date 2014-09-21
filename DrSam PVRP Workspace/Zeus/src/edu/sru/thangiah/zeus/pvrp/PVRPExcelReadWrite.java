@@ -115,7 +115,8 @@ public class PVRPExcelReadWrite
 	public int frequency;
 	public int numberCombinations;
 	Vector combinationsVector = new Vector (10,10);
-	public PVRPShipment theShipment = new PVRPShipment();
+	//public PVRPShipment theShipment = new PVRPShipment();
+	public PVRPShipmentLinkedList mainShipment = new PVRPShipmentLinkedList();
 
 
 	public PVRPExcelReadWrite(String excelInput, PVRPShipmentLinkedList list)
@@ -353,6 +354,10 @@ public class PVRPExcelReadWrite
 
 	public void excelReader(String inputFile, PVRPShipmentLinkedList list)
 	{
+		double DUMMY = -1;
+		int list[] = new int[ProblemInfo.MAX_COMBINATIONS];
+		int currentComb[][] = new int[ProblemInfo.MAX_HORIZON][ProblemInfo.MAX_COMBINATIONS];
+
 		try
 		{
 			int numTrucks = 0, rowCount, cellCount;
@@ -417,6 +422,7 @@ public class PVRPExcelReadWrite
 				else if (row.getRowNum() > numberVehicles + 1)
 				{
 					cellCount = 0;
+					int listIndex = 0;
 					while (cellIterator.hasNext())
 					{
 						cell = (Cell) cellIterator.next();
@@ -435,7 +441,7 @@ public class PVRPExcelReadWrite
 								yCoordinates = currentCellContents;
 								break;
 							case 5:
-								double DUMMY = currentCellContents;     //USUALLY ALL ZEROS
+								 DUMMY = currentCellContents;     //USUALLY ALL ZEROS
 																		//DUNNO WHAT THIS ACTUALLY DOES
 								break;
 							case 6:
@@ -446,14 +452,21 @@ public class PVRPExcelReadWrite
 								break;
 							case 8:
 								numberCombinations = currentCellContents;
-								for(int start = 0; start < numberCombinations; start++)
-								{
-									combinationsVector.addElement(row.getCell(8 + start));  //starts at column EIGHT and keeps adding data to the vector
-								}
+								break;
+							default:
+								list[listIndex] = currentCellContents;
+								listIndex++;
+								break;
 
 						}
 					}
-					theShipment.insertShipment();
+					for (int l = 0; l < numberCombinations; l++) {
+						currentComb[l] = mainShipments.getCurrentComb(list, l, planningDays); // current visit comb
+
+						//insert the customer data into the linked list
+					}
+
+					mainShipment.insertShipment(nodeNumber, xCoordinates, yCoordinates, DUMMY, demandQ, frequency, numberCombinations, list, currentComb);
 
 				}
 				rowCount++;

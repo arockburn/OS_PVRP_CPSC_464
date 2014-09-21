@@ -12,7 +12,7 @@ public class PVRPShipment extends Shipment {
 	}
 
 
-	public PVRPShipment(int customerNumber, double xCoordinate, double yCoordinate, int demand, int frequency)
+	public PVRPShipment(int customerNumber, double xCoordinate, double yCoordinate, int demand, int frequency, int numberCombinations, int list[], int currentCombination[][])
 	{
 		setIndex(customerNumber);
 		setxCoord(xCoordinate);
