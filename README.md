@@ -13,7 +13,7 @@ Aaron Rockburn/Joshua Sarver
 
 
 
-A municipality removes trash from various properties throughout a six-day period. This service can include residents, restaurants,
+  A municipality removes trash from various properties throughout a six-day period. This service can include residents, restaurants,
 
 and retail stores – all of which have different needs. For example, a popular restaurant may need daily visits, whereas a resident 
 may need visited once per week.  This problem is referred to as a Periodic Vehicle Routing Problem (PVRP), an extension of the 
