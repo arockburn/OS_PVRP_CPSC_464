@@ -38,19 +38,16 @@ public class PVRPShipmentLinkedList
 	//public LinkedList<PVRPTruck> trucks = new LinkedList<PVRPTruck>();
 	
 	public PVRPShipmentLinkedList(){
-		/*setTail(new PVRPShipment());
+		setTail(new PVRPShipment());
 		setHead(new PVRPShipment());
 		linkHeadTail();
 		setNumShipments(0);
-		mainShips.addLast(0.0);*/
 		
 	}
-
-
-
 	
-	public void insertShipment(int index, int x, int y, int d, int freq, int combination, ){
-		
+	public void insertShipment(int index, int x, int y, int d, int freq){
+		PVRPShipment ship = new PVRPShipment(index, x, y, d, freq);
+		insertLast(ship);
 	}
 		
 }
