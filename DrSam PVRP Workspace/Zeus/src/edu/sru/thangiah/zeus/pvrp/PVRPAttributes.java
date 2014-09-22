@@ -7,16 +7,19 @@
 package edu.sru.thangiah.zeus.pvrp;
 
 //IMPORTS
+import edu.sru.thangiah.zeus.core.Attributes;
 import java.io.Serializable;
-import java.util.jar.Attributes;
 
 
+
+
+
+//***********	CLASS	**********************************************************************************\\
 public class PVRPAttributes extends Attributes
 		implements Serializable, Cloneable
 {
 
 	public PVRPAttributes()
 	{
-
 	}
 }

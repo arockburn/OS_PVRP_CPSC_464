@@ -1,25 +1,38 @@
+//AARON ROCKBURN; JOSHUA SARVER
+//CPSC 464
+//PVRP PROBLEM
+
+
+//PACKAGE TITLE
+
 package edu.sru.thangiah.zeus.pvrp;
 
-import edu.sru.thangiah.zeus.core.*;
-import edu.sru.thangiah.zeus.pvrp.PVRPTrunkLinkedList;
 
+//IMPORTS
+import edu.sru.thangiah.zeus.core.DepotLinkedList;
 import java.io.Serializable;
 
-/**
- * Created by joshuasarver on 9/13/2014.
- */
+
+
+
+
+//***********	CLASS	*********************************************************************************************\\
 public class PVRPDepotLinkedList extends DepotLinkedList implements Serializable, Cloneable
 {
 
-	public PVRPDepotLinkedList(){
+
+	//***********	CLASS_FUNCTIONS	**********************************************************************************\\
+	public PVRPDepotLinkedList()
+	{
 		setHead(new PVRPDepot());   //head node
 		setTail(new PVRPDepot());   //tail node
 		linkHeadTail();             //link head and tail together
 
-
 		//setAttributes(new PVRPAttributes());
 	}
 
+
+	//INSERT SHIPMENT
 	public boolean insertShipment(PVRPShipment theShipment)
 	{
 		boolean status = false;
@@ -27,13 +40,13 @@ public class PVRPDepotLinkedList extends DepotLinkedList implements Serializable
 		PVRPDepot depot = (PVRPDepot) super.getHead().getNext();
 		//PVRPTrunkLinkedList truckLL = (PVRPTruckLinkedList) depot.getMainTrucks();
 
-		while(depot != this.getTail())
+		while (depot != this.getTail())
 		{
 			//truckLL = (PVRPTrunkLinkedList) depot.getMainTrucks();
 
 			//status = truckLL.insertShipment(theShipment);
 
-			if(status == true)
+			if (status == true)
 			{
 				break;
 			}
@@ -42,30 +55,34 @@ public class PVRPDepotLinkedList extends DepotLinkedList implements Serializable
 		return status;
 	}
 
+
+	//GET VRP HEAD
 	public PVRPDepot getVRPHead()
 	{
 		return (PVRPDepot) getHead();
 	}
 
+
+	//OBJECT CLONE
 	public Object clone()
 	{
 		PVRPDepotLinkedList clonedDepotLinkedList = new PVRPDepotLinkedList();
 
 		//clonedDepotLinkedList.setAttributes( (PVRPAttributes) this.getAttributes().clone() );
 
-		if(this.getHead() != this.getTail())
+		if (this.getHead() != this.getTail())
 		{
 			PVRPDepot currentDepot = (PVRPDepot) clonedDepotLinkedList.getHead();
 			PVRPDepot nextDepot = (PVRPDepot) this.getHead().getNext();
 
-			while(nextDepot != null)
+			while (nextDepot != null)
 			{
-			//	currentDepot.setNext( (PVRP) nextDepot.clone());
+				//	currentDepot.setNext( (PVRP) nextDepot.clone());
 				currentDepot.getNext().setPrev(currentDepot);
 				currentDepot = (PVRPDepot) currentDepot.getNext();
 				nextDepot = (PVRPDepot) nextDepot.getNext();
 
-				if(nextDepot == null)
+				if (nextDepot == null)
 				{
 					clonedDepotLinkedList.setTail(currentDepot);
 					currentDepot.setNext(null);

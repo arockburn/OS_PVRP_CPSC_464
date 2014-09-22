@@ -51,18 +51,14 @@ public class PVRPShipmentLinkedList
 		{
 			System.out.println("VRPShipmentLinkedList: Maximum number of combinations exceeded");
 		}
-
-
-	}
+	}//\\insert shipment
 
 
 	//GET PVRP HEAD
 	public PVRPShipment getPVRPHead()
 	{
-
 		return (PVRPShipment) getHead();
-
-	}
+	}//\\get vrp head
 
 
 	//GET PVRP TAIL
@@ -78,16 +74,15 @@ public class PVRPShipmentLinkedList
 
 		PVRPShipmentLinkedList selectShip = (PVRPShipmentLinkedList) ProblemInfo.selectShipType;
 		return selectShip.getSelectShipment(currDepotLL, currDepot, currShipmentLL, currShip);
-	}
+	}//\\get next insert shipment
 
 
 	//GET SELECT SHIPMENT
 	public PVRPShipment getSelectShipment(PVRPDepotLinkedList currDepotLL, PVRPDepot currDepot, PVRPShipmentLinkedList currShipmentLL,
 										  PVRPShipment currShip)
 	{
-
 		return null;
-	}
+	}//\\get select shipment
 
 
 	//PRINT PVRP SHIPMENTS TO CONSOLE
@@ -108,7 +103,7 @@ public class PVRPShipmentLinkedList
 					pvrpShip.getExtraVariable()) ;
 			ship = ship.getNext();
 		}
-	}
+	}//\\print pvrp shipments to console
 
 
 	//WRITE PVRP SHIPMENTS
@@ -118,10 +113,10 @@ public class PVRPShipmentLinkedList
 
 
 		Shipment ship = super.getHead();
-		PVRPShipment vrpShip;
+		PVRPShipment pvrpShip;
 		while (ship != getTail())
 		{
-			vrpShip = (PVRPShipment) ship;
+			pvrpShip = (PVRPShipment) ship;
 			out.println(pvrpShip.getIndex() + " " + pvrpShip.getTruckTypeNeeded() + " " +
 					pvrpShip.getDemand() + " " + pvrpShip.getXCoord() + " " +
 					//ship.getYCoord() + " " + ship.getPickUpPointName() +
@@ -129,7 +124,7 @@ public class PVRPShipmentLinkedList
 					pvrpShip.getExtraVariable());
 			ship = ship.getNext();
 		}
-	}
+	}//\\write pvrp shipments
 
 }
 
