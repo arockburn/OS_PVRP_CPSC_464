@@ -167,7 +167,6 @@ public class PVRPShipmentLinkedList
 				{
 					case 0:
 						cell.setCellValue(pvrpShip.getIndex());	//set each cell value to the correct value from the linked list
-						previousGetIndex = pvrpShip.getIndex();
 						break;
 					case 1:
 						cell.setCellValue(pvrpShip.getxCoord());
