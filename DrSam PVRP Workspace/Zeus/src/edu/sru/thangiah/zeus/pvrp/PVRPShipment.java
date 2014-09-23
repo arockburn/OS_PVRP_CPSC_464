@@ -1,6 +1,10 @@
-//AARON ROCKBURN; JOSHUA SARVER
-//CPSC 464
 //PVRP PROBLEM
+//CPSC 464
+//AARON ROCKBURN; JOSHUA SARVER
+
+//***********	DECLARATION_S_OTHER	**********************************************************************************\\
+// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 //PACKAGE TITLE
@@ -14,7 +18,7 @@ import edu.sru.thangiah.zeus.core.Shipment;
 
 
 
-//***********	CLASS	**********************************************************************************\\
+//CLASS
 public class PVRPShipment extends Shipment
 {
 
@@ -22,7 +26,7 @@ public class PVRPShipment extends Shipment
 	private double extraVariable;
 
 
-	//***********	CLASS_FUNCTIONS	**********************************************************************************\\
+	//***********	DECLARATION_S	**********************************************************************************\\
 	public PVRPShipment()
 	{
 	}
@@ -35,18 +39,20 @@ public class PVRPShipment extends Shipment
 		setyCoord(yCoordinate);            //set y coordinate
 		setDemand(demand);                //set the demand for the node
 		setFrequency(frequency);        //set the visit frequency for the node
+		//set
 
 
 		extraVariable = Math.random();
 	}
 
 
-	//GET EXTRA VARIABLE
+	// GET_EXTRA_VARIABLE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public double getExtraVariable()
 	{
 		//get the next shipment from the shipment linked list
 		//but return it as a VRPShipment
 		return extraVariable;
-	}//\\get extra variable
+	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 }

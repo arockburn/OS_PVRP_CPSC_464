@@ -1,24 +1,27 @@
-//AARON ROCKBURN; JOSHUA SARVER
-//CPSC 464
 //PVRP PROBLEM
+//CPSC 464
+//AARON ROCKBURN; JOSHUA SARVER
+
+//***********	DECLARATION_S_OTHER	**********************************************************************************\\
+// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 //PACKAGE TITLE
-
 package edu.sru.thangiah.zeus.pvrp;
 
-//IMPORT
+
+
+//IMPORTS
 import edu.sru.thangiah.zeus.core.TruckLinkedList;
 
 
 
-
-
-//***********	CLASS ************************************************************************************************\\
+//CLASS
 public class PVRPTruckLinkedList extends TruckLinkedList implements java.io.Serializable, java.lang.Cloneable
 {
 
-	//***********	CLASS_FUNCTIONS **********************************************************************************\\
+	//***********	DECLARATION **********************************************************************************\\
 	public PVRPTruckLinkedList()
 	{
 		//Housekeeping for the linked list

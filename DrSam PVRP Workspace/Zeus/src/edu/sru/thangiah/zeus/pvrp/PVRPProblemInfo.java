@@ -1,32 +1,66 @@
+//PVRP PROBLEM
+//CPSC 464
+//AARON ROCKBURN; JOSHUA SARVER
+
+//***********	DECLARATION_S_OTHER	**********************************************************************************\\
+// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+//PACKAGE TITLE
 package edu.sru.thangiah.zeus.pvrp;
 
+//IMPORTS
 import edu.sru.thangiah.zeus.core.ProblemInfo;
 
-/**
- * Created by joshuasarver on 9/13/2014.
- */
-public class PVRPProblemInfo extends ProblemInfo {
 
-	public void PVRPProblemInfo(){
+
+
+//CLASS
+public class PVRPProblemInfo extends ProblemInfo
+{
+
+	//***********	DECLARATION_S	**********************************************************************************\\
+	public void PVRPProblemInfo()
+	{
 
 	}
 
-	public void insertProblemHeader(int planningDays, int numberNodes, int numberVehicles){
+
+
+	// INSERT_PROBLEM_HEADER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public void insertProblemHeader(int planningDays, int numberNodes, int numberVehicles)
+	{
 		noOfDays = planningDays;
 		noOfShips = numberNodes;
 		noOfVehs = numberVehicles;
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-	public  int getNumberOfPlanningDays(){
+
+
+	// GET_NUMBER_OF_PLANNING_DAYS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public int getNumberOfPlanningDays()
+	{
 		return noOfDays;
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-	public int getNumberOfNodes(){
+
+
+	// GET_NUMBER_OF_NODES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public int getNumberOfNodes()
+	{
 		return noOfShips;
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-	public int getNumberOfVehicles(){
+
+
+	// GET_NUMBER_OF_VEHICLES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public int getNumberOfVehicles()
+	{
 		return noOfVehs;
 	}
-
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 }

@@ -1,26 +1,57 @@
+//PVRP PROBLEM
+//CPSC 464
+//AARON ROCKBURN; JOSHUA SARVER
+
+//***********	DECLARATION_S_OTHER	**********************************************************************************\\
+// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+//PACKAGE TITLE
 package edu.sru.thangiah.zeus.pvrp;
 
+
+//IMPORT
 import edu.sru.thangiah.zeus.core.Truck;
 
-/**
- * Created by joshuasarver on 9/13/2014.
- */
-public class PVRPTruck extends Truck {
-	
-	private int capacity, maxDist, truckNum;
-	public PVRPTruck(){
-		
+
+//CLASS
+public class PVRPTruck extends Truck
+{
+
+	//***********	CLASS_VARIABLES	**********************************************************************************\\
+	private int capacity,
+				maxDist,
+				truckNum;
+
+
+	//***********	DECLARATION_S	**********************************************************************************\\
+	public PVRPTruck()
+	{
+
 	}
-	
-	public void setCapacity(int val){
+
+	// SET_CAPACITY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public void setCapacity(int val)
+	{
 		capacity = val;
 	}
-	
-	public void setMaxDist(int val){
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+	// SET_MAX_DIST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public void setMaxDist(int val)
+	{
 		maxDist = val;
 	}
-	
-	public void setTruckNum(int val){
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+	// SET_TRUCK_NUM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public void setTruckNum(int val)
+	{
 		truckNum = val;
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 }

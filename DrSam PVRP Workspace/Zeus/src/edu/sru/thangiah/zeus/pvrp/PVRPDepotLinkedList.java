@@ -1,6 +1,10 @@
-//AARON ROCKBURN; JOSHUA SARVER
-//CPSC 464
 //PVRP PROBLEM
+//CPSC 464
+//AARON ROCKBURN; JOSHUA SARVER
+
+//***********	DECLARATION_S_OTHER	**********************************************************************************\\
+// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 //PACKAGE TITLE
@@ -16,12 +20,12 @@ import java.io.Serializable;
 
 
 
-//***********	CLASS	*********************************************************************************************\\
+//CLASS
 public class PVRPDepotLinkedList extends DepotLinkedList implements Serializable, Cloneable
 {
 
 
-	//***********	CLASS_FUNCTIONS	**********************************************************************************\\
+	//***********	DECLARATION_S	**********************************************************************************\\
 	public PVRPDepotLinkedList()
 	{
 		setHead(new PVRPDepot());   //head node
@@ -32,7 +36,8 @@ public class PVRPDepotLinkedList extends DepotLinkedList implements Serializable
 	}
 
 
-	//INSERT SHIPMENT
+
+	// INSERT_SHIPMENT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public boolean insertShipment(PVRPShipment theShipment)
 	{
 		boolean status = false;
@@ -54,16 +59,20 @@ public class PVRPDepotLinkedList extends DepotLinkedList implements Serializable
 		}
 		return status;
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-	//GET VRP HEAD
-	public PVRPDepot getVRPHead()
+
+	// GET_PVRP_HEAD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public PVRPDepot getPVRPHead()
 	{
 		return (PVRPDepot) getHead();
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-	//OBJECT CLONE
+
+	// CLONE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public Object clone()
 	{
 		PVRPDepotLinkedList clonedDepotLinkedList = new PVRPDepotLinkedList();
@@ -95,6 +104,7 @@ public class PVRPDepotLinkedList extends DepotLinkedList implements Serializable
 		}
 		return clonedDepotLinkedList;
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 }

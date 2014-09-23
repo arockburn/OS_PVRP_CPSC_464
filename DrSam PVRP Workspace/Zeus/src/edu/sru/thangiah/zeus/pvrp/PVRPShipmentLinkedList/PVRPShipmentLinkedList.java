@@ -1,6 +1,10 @@
-//AARON ROCKBURN; JOSHUA SARVER
-//CPSC 464
 //PVRP PROBLEM
+//CPSC 464
+//AARON ROCKBURN; JOSHUA SARVER
+
+//***********	DECLARATION_S_OTHER	**********************************************************************************\\
+// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 //PACKAGE TITLE
@@ -16,18 +20,26 @@ import edu.sru.thangiah.zeus.pvrp.PVRPDepotLinkedList;
 import edu.sru.thangiah.zeus.pvrp.PVRPShipment;
 
 import java.io.PrintStream;
+import edu.sru.thangiah.zeus.core.ProblemInfo;
+import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList.PVRPShipmentLinkedList;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-//import the parent class
+import java.io.*;
+import java.util.Iterator;
 
 
-//***********	CLASS	**********************************************************************************\\
+//CLASS
 public class PVRPShipmentLinkedList
 		extends ShipmentLinkedList
 		implements java.io.Serializable, java.lang.Cloneable
 {
 
 
-	//***********	CLASS_FUNCTIONS	**********************************************************************************\\
+	//***********	DECLARATION_S	**********************************************************************************\\
 	public PVRPShipmentLinkedList()
 	{
 		setTail(new PVRPShipment());
@@ -37,8 +49,10 @@ public class PVRPShipmentLinkedList
 	}
 
 
-	//INSERT_SHIPMENT
-	public void insertShipment(int node, double x, double y, double DUMMY, int demandQ, int frequency, int numberCombos, int[] comboList, int[][] currentCombo)
+
+	//INSERT_SHIPMENT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public void insertShipment(int node, double x, double y, double DUMMY, int demandQ, int frequency, int numberCombos,
+							   int[] comboList, int[][] currentCombo)
 	{
 		if (comboList.length <= ProblemInfo.MAX_COMBINATIONS)
 		{
@@ -51,47 +65,56 @@ public class PVRPShipmentLinkedList
 		{
 			System.out.println("VRPShipmentLinkedList: Maximum number of combinations exceeded");
 		}
-	}//\\insert shipment
+	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-	//GET PVRP HEAD
+
+	//GET_PVRP_HEAD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public PVRPShipment getPVRPHead()
 	{
 		return (PVRPShipment) getHead();
-	}//\\get vrp head
-
-
-	//GET PVRP TAIL
-	public PVRPShipment getPVRPTail()
-	{
-		return (PVRPShipment) getTail();
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-	//GET NEXT INSERT SHIPMENT
-	public PVRPShipment getNextInsertShipment(PVRPDepotLinkedList currDepotLL, PVRPDepot currDepot, PVRPShipmentLinkedList currShipmentLL, PVRPShipment currShip)
+
+	//GET_PVRP_TAIL >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public PVRPShipment getPVRPTail(){	return (PVRPShipment) getTail();	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+	//GET_NEXT_INSERT_SHIPMENT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public PVRPShipment getNextInsertShipment(PVRPDepotLinkedList currDepotLL, PVRPDepot currDepot,
+											  PVRPShipmentLinkedList currShipmentLL, PVRPShipment currShip)
 	{
-
 		PVRPShipmentLinkedList selectShip = (PVRPShipmentLinkedList) ProblemInfo.selectShipType;
+
 		return selectShip.getSelectShipment(currDepotLL, currDepot, currShipmentLL, currShip);
-	}//\\get next insert shipment
+	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-	//GET SELECT SHIPMENT
-	public PVRPShipment getSelectShipment(PVRPDepotLinkedList currDepotLL, PVRPDepot currDepot, PVRPShipmentLinkedList currShipmentLL,
-										  PVRPShipment currShip)
+
+	//GET_SELECT_SHIPMENT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public PVRPShipment getSelectShipment(PVRPDepotLinkedList currDepotLL, PVRPDepot currDepot,
+										  PVRPShipmentLinkedList currShipmentLL, PVRPShipment currShip)
 	{
 		return null;
-	}//\\get select shipment
+	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-	//PRINT PVRP SHIPMENTS TO CONSOLE
+
+	//PRINT_PVRP_SHIPMENTS_TO_CONSOLE	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public void printPVRPShipmentsToConsole()
 	{
 		System.out.println(this.getNumShipments());
 
 		Shipment ship = super.getHead();
 		PVRPShipment pvrpShip;
+
 		while (ship != getTail())
 		{
 			pvrpShip = (PVRPShipment) ship;
@@ -103,28 +126,83 @@ public class PVRPShipmentLinkedList
 					pvrpShip.getExtraVariable()) ;
 			ship = ship.getNext();
 		}
-	}//\\print pvrp shipments to console
+	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-	//WRITE PVRP SHIPMENTS
-	public void writePVRPShipments(PrintStream out)
+
+	//WRITE_PVRP_SHIPMENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public void writePVRPShipments(FileOutputStream out) throws IOException
 	{
-		out.println(this.getNumShipments());
 
+		//VARIABLES
+		Shipment ship = super.getHead();		//the linked list head
 
-		Shipment ship = super.getHead();
 		PVRPShipment pvrpShip;
-		while (ship != getTail())
+
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet("Customer Data");	//create a worksheet
+
+
+
+
+		int rowCounter = 0;		//tracks our rows
+		int previousGetIndex = -10;
+
+		while (ship != getTail())								//while we aren't at the tail of the doubly linked list
 		{
 			pvrpShip = (PVRPShipment) ship;
-			out.println(pvrpShip.getIndex() + " " + pvrpShip.getTruckTypeNeeded() + " " +
-					pvrpShip.getDemand() + " " + pvrpShip.getXCoord() + " " +
-					//ship.getYCoord() + " " + ship.getPickUpPointName() +
-					pvrpShip.getYCoord() + " " +
-					pvrpShip.getExtraVariable());
-			ship = ship.getNext();
+
+			ship = ship.getNext();								//get the next shipment
+
+
+			Row row = sheet.createRow(rowCounter);		//make a new row
+			int cellTracker = 0;						//tracks which cell we are currently at
+
+
+			while (cellTracker != 5)					//while we haven't written all the cells for the given row
+			{
+				Cell cell = row.createCell(cellTracker);	//create new cell number X
+				switch (cellTracker)						//SWITCH statement
+				{
+					case 0:
+						cell.setCellValue(pvrpShip.getIndex());	//set each cell value to the correct value from the linked list
+						previousGetIndex = pvrpShip.getIndex();
+						break;
+					case 1:
+						cell.setCellValue(pvrpShip.getxCoord());
+						break;
+					case 2:
+						cell.setCellValue(pvrpShip.getyCoord());
+
+						break;
+					case 3:
+						cell.setCellValue(pvrpShip.getDemand());
+						break;
+					case 4:
+						cell.setCellValue(pvrpShip.getFrequency());
+						break;
+					/**        case 5:								??????????????????????????MUST IMPLEMENT FOR ALL VARIABLES OF PVRP
+					 cell.setCellValue(pvrpShip.getExtraVariable());
+					 break;
+					 case 6:
+					 cell.setCellValue(pvrpShip.getIndex());
+					 break;
+					 case 7:*/
+				}
+				cellTracker++;			//increment our cell tracker
+			}
+			rowCounter++;				//move onto the next row
+
+
+			//System.out.print("A NEW ROW");
 		}
-	}//\\write pvrp shipments
+
+		workbook.write(out);
+		out.close();
+
+	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 }
 

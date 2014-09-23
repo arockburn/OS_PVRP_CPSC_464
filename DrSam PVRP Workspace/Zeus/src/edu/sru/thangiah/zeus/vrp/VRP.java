@@ -118,58 +118,58 @@ public class VRP {
   /**
    * Creates the initial solution for the problem
    */
-  public void createInitialRoutes() {
-    //OptInfo has old and new attributes
-    VRPDepot currDepot = null; //current depot
-    VRPShipment currShip = null; //current shipment
-    //int countLoop=0;
+ 	public void createInitialRoutes() {
+		//OptInfo has old and new attributes
+		VRPDepot currDepot = null; //current depot
+		VRPShipment currShip = null; //current shipment
+		//int countLoop=0;
 
-    //check if selection and insertion type methods have been selected
-    if (ProblemInfo.selectShipType == null) {
-      Settings.printDebug(Settings.ERROR,
-                          "No selection shipment type has been assigned");
+		//check if selection and insertion type methods have been selected
+		if (ProblemInfo.selectShipType == null) {
+			Settings.printDebug(Settings.ERROR,
+									   "No selection shipment type has been assigned");
 
-    }
-    if (ProblemInfo.insertShipType == null) {
-      Settings.printDebug(Settings.ERROR,
-                          "No insertion shipment type has been assigned");
-    }
+		}
+		if (ProblemInfo.insertShipType == null) {
+			Settings.printDebug(Settings.ERROR,
+									   "No insertion shipment type has been assigned");
+		}
 
- 
-    //countLoop=1;
-    while (!mainShipments.isAllShipsAssigned()) {
-      double x, y;
-      int i = 0;
-      //Get the x an y coordinate of the depot
-      //Then use those to get the customer, that has not been allocated,
-      // that is closest to the depot
-      currDepot = (VRPDepot) mainDepots.getVRPHead().getNext();
-      x = mainDepots.getHead().getXCoord();
-      y = mainDepots.getHead().getYCoord();
-      //Send the entire mainDepots and mainShipments to get the next shipment
-      //to be inserted including the current depot
-      VRPShipment theShipment = mainShipments.getNextInsertShipment(mainDepots,
-          currDepot, mainShipments, currShip);
 
-      if (theShipment == null) { //shipment is null, print error message
-        Settings.printDebug(Settings.COMMENT, "No shipment was selected");
-      }
-      //The selected shipment will be inserted into the route
-      if (!mainDepots.insertShipment(theShipment)) {
-        Settings.printDebug(Settings.COMMENT, "The Shipment: <" + theShipment.getIndex() +
-                            "> cannot be routed");
-      }
-      else {
-        Settings.printDebug(Settings.COMMENT,
-                            "The Shipment: <" + theShipment.getIndex() +// " " + theShipment +
-                            "> was routed");
-        //tag the shipment as being routed
-        theShipment.setIsAssigned(true);
-      }
-    }
+		//countLoop=1;
+		while (!mainShipments.isAllShipsAssigned()) {
+			double x, y;
+			int i = 0;
+			//Get the x an y coordinate of the depot
+			//Then use those to get the customer, that has not been allocated,
+			// that is closest to the depot
+			currDepot = (VRPDepot) mainDepots.getVRPHead().getNext();
+			x = mainDepots.getHead().getXCoord();
+			y = mainDepots.getHead().getYCoord();
+			//Send the entire mainDepots and mainShipments to get the next shipment
+			//to be inserted including the current depot
+			VRPShipment theShipment = mainShipments.getNextInsertShipment(mainDepots,
+																				 currDepot, mainShipments, currShip);
 
-    ProblemInfo.depotLLLevelCostF.calculateTotalsStats(mainDepots);
-  }
+			if (theShipment == null) { //shipment is null, print error message
+				Settings.printDebug(Settings.COMMENT, "No shipment was selected");
+			}
+			//The selected shipment will be inserted into the route
+			if (!mainDepots.insertShipment(theShipment)) {
+				Settings.printDebug(Settings.COMMENT, "The Shipment: <" + theShipment.getIndex() +
+															  "> cannot be routed");
+			}
+			else {
+				Settings.printDebug(Settings.COMMENT,
+										   "The Shipment: <" + theShipment.getIndex() +// " " + theShipment +
+												   "> was routed");
+				//tag the shipment as being routed
+				theShipment.setIsAssigned(true);
+			}
+		}
+
+		ProblemInfo.depotLLLevelCostF.calculateTotalsStats(mainDepots);
+	}
 
   //read in the data from the requested file in token format
   public int readDataFromFile(String VRPFileName) {

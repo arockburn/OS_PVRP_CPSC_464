@@ -1,17 +1,23 @@
-//AARON ROCKBURN; JOSHUA SARVER
-//CPSC 464
 //PVRP PROBLEM
+//CPSC 464
+//AARON ROCKBURN; JOSHUA SARVER
+
+//***********	DECLARATION_S_OTHER	**********************************************************************************\\
+// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 //PACKAGE TITLE
 package edu.sru.thangiah.zeus.pvrp;
 
 //IMPORT STATEMENTS
-import edu.sru.thangiah.zeus.core.*;
-
-import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList.*;
-import edu.sru.thangiah.zeus.pvrp.pvrpnodeslinkedlist.*;
+import edu.sru.thangiah.zeus.core.Depot;
+import edu.sru.thangiah.zeus.core.ProblemInfo;
+import edu.sru.thangiah.zeus.core.Settings;
+import edu.sru.thangiah.zeus.core.Shipment;
 import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList.PVRPShipmentLinkedList;
+import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList.SmallestPolarAngleToDepot;
+import edu.sru.thangiah.zeus.pvrp.pvrpnodeslinkedlist.LinearGreedyInsertShipment;
 import edu.sru.thangiah.zeus.pvrp.pvrpqualityassurance.PVRPQualityAssurance;
 import edu.sru.thangiah.zeus.vrp.vrpqualityassurance.VRPQualityAssurance;
 
@@ -23,68 +29,77 @@ import java.util.Vector;
 
 
 
+
+
 //CLASS
 public class PVRP
 {
+
 	//***********	CLASS_VARIABLES	**********************************************************************************\\
 	//PROBLEM DATA VARIABLES
-		double  depotXCoordinates   = 0,
-				depotYCoordinates   = 0;
-		int     vehicleCapacity     = 0;
+	double	depotXCoordinates 	= 0,
+			depotYCoordinates 	= 0;
+	int 	vehicleCapacity 	= 0;
 
 	//NODES VARIABLES
-		int     customerNumber  = 0;
-		double  xCoordinates    = 0,
-				yCoordinates    = 0;
-		int     demandQ     = 0,
-				frequency   = 0;
+	int 	customerNumber 	= 0;
+	double 	xCoordinates 	= 0,
+			yCoordinates 	= 0;
+	int		demandQ 		= 0,
+			frequency 		= 0;
 
 	//OTHER VARIABLES
-		long    startTime   = 0,
-				endTime     = 0;    //tracks the CPU processing time
+	long	startTime 	= 0,
+			endTime 	= 0;    //tracks the CPU processing time
 
 
 	//INSTANTIATE SOME OBJECTS
-		//not sure what these are yet
-		private Vector	mainOpts         = new Vector();         //collection of optmizations
-		private Vector	optInformation   = new Vector();         //contains route information
-
-		private PVRPShipmentLinkedList  mainShipments   = new PVRPShipmentLinkedList(); //customers read in from a file or database that are available
-		private PVRPDepotLinkedList     mainDepots      = new PVRPDepotLinkedList();    //linked list for depots
-
-		private PVRPQualityAssurance 	pvrpQA;		//checks our solution for good data
-		private PVRPExcelReadWrite 		excel;		//handles reading our EXCEL file
+	//not sure what these are yet
+	private Vector mainOpts = new Vector();         //collection of optmizations
+	private Vector optInformation = new Vector();         //contains route information
 
 
+	private PVRPShipmentLinkedList mainShipments = new PVRPShipmentLinkedList(); //customers read in from a file or database that are available
+	private PVRPDepotLinkedList mainDepots = new PVRPDepotLinkedList();    //linked list for depots
 
-	//CLASS
-	public PVRP(String excelDataInput) throws IOException	//not a curveball
+	private PVRPQualityAssurance pvrpQA;        //checks our solution for good data
+	private PVRPExcelReadWrite excel;        //handles reading our EXCEL file
+
+	int list[] = new int[ProblemInfo.MAX_COMBINATIONS];
+	int currentCombination[][] = new int[ProblemInfo.MAX_HORIZON][ProblemInfo.MAX_COMBINATIONS];
+
+
+
+	//***********	DECLARATION_S	**********************************************************************************\\
+	public PVRP(String excelDataInput) throws IOException    //not a curveball
 	{
-		//***********	FUNCTION_VARIABLES	**************************************************************************\\
-		boolean		isDiagnostic = false,
+		//DECLARTION VARIABLES
+		boolean 	isDiagnostic = false,
 					status;
 		Shipment	tempShip;
-		Depot		thisDepot;
+		Depot 		thisDepot;
 		int 		type,
 					depotNo,
 					countAssignLoop;
 		String 		outputFileName;
 
-		ProblemInfo.truckTypes 	= new Vector(); 										//WE SHOULD ONLY HAVE ONE TRUCK TYPE
-		int list[]				= new int[ProblemInfo.MAX_COMBINATIONS];				//array of 0'1 and 1's for the combinations
-		int currentComb[][] 	= new int[ProblemInfo.MAX_HORIZON][ProblemInfo.MAX_COMBINATIONS];
+		ProblemInfo.truckTypes = new Vector();                                        //WE SHOULD ONLY HAVE ONE TRUCK TYPE
+		int list[] = new int[ProblemInfo.MAX_COMBINATIONS];                //array of 0'1 and 1's for the combinations
+		int currentComb[][] = new int[ProblemInfo.MAX_HORIZON][ProblemInfo.MAX_COMBINATIONS];
 
-		excel = new PVRPExcelReadWrite(excelDataInput, mainShipments);	//instantiate the excel class
+		excel = new PVRPExcelReadWrite(excelDataInput, mainShipments);    //instantiate the excel class
 
 		//read some data -- this class adds the data to a linked list
 		excel.excelReader(list, currentComb);
 
 		Settings.printDebug(Settings.COMMENT, "Read Data File: " + ProblemInfo.inputPath + excelDataInput);
 		printDataToConsole();
+		System.out.println("E#RGTY#$%TYG#$%TYG#$%HY$%");
 		excel.excelWriter(list);
 
 		//MAKE SURE DATA IS IN OUR SHIPMENT LINKED LIST
-		if (mainShipments.getVRPHead() == null) {
+		if (mainShipments.getPVRPHead() == null)
+		{
 			Settings.printDebug(Settings.ERROR, "VRP: Shipment linked list is empty");
 		}
 
@@ -104,19 +119,21 @@ public class PVRP
 		//Get the initial solution
 		//Depending on the Settings status, display information on the routes
 		//Trucks used, total demand, dist, travel time and cost
-			Settings.printDebug(Settings.COMMENT, "Created Initial Routes ");
-			Settings.printDebug(Settings.COMMENT, "Initial Stats: " + mainDepots.getSolutionString());
+		Settings.printDebug(Settings.COMMENT, "Created Initial Routes ");
+		Settings.printDebug(Settings.COMMENT, "Initial Stats: " + mainDepots.getSolutionString());
 
 
 		//Check for the quality and integrity of the solution
-			System.out.println("Starting QUALITY ASSURANCE");
-			vrpQA = new VRPQualityAssurance(mainDepots, mainShipments);
-			if (vrpQA.runQA() == false) {
-				Settings.printDebug(Settings.ERROR, "QA FAILED!");
-			}
-			else {
-				Settings.printDebug(Settings.COMMENT, "QA succeeded");
-			}
+		System.out.println("Starting QUALITY ASSURANCE");
+		pvrpQA = new PVRPQualityAssurance(mainDepots, mainShipments);
+		if (pvrpQA.runQA() == false)
+		{
+			Settings.printDebug(Settings.ERROR, "QA FAILED!");
+		}
+		else
+		{
+			Settings.printDebug(Settings.COMMENT, "QA succeeded");
+		}
 
 
 		//ZeusGui guiPost = new ZeusGui(mainDepots, mainShipments);		//CALL THIS SOME OTHER DAY...WHEN EVERYTHING WORKS
@@ -124,27 +141,24 @@ public class PVRP
 	}
 
 
-
 	//***********	FUNCTIONS	**************************************************************************************\\
-	//PRINT DATA TO CONSOLE
-	public void printDataToConsole(){
+	// PRINT_DATA_TO_CONSOLE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public void printDataToConsole()
+	{
 		mainShipments.printPVRPShipmentsToConsole();
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
+/*
 
-	//READ DATA FROM FILE
+	// READ_DATA_FROM_FILE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public void readDataFromFile() throws IOException
 	{
 
-		//STRING VARIABLES FOR EASIER READING
-		String newline = "\n";
-		String space = " ";
-
 		//EXTRACT THE NEEDED DATA FROM EXCEL
 
-		String problemInfo = excelReader.readProblemInfoFromExcel();
-		String nodesInfo = excelReader.readNodesFromExcel();    //LAST NODE IS DEPOT
+		excel.excelReader(list, currentCombination); //LAST NODE IS DEPOT
 		//WHAT ABOUT MULTIPLE DEPOTS?
 
 		//SPLIT PROBLEM INFO INTO COLUMNS AS WE ONLY HAVE ONE ROW OF THIS
@@ -185,13 +199,73 @@ public class PVRP
 			//HANDLE MULTIPLE DEPOTS AS IN VRP
 		}
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+*/
 
+	// WRITE_DATA_TO_FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public void writeDataToFile() throws FileNotFoundException
 	{
 		PrintStream ps = new PrintStream(new FileOutputStream(ProblemInfo.outputPath + "genericOutput.xlsx"));
 		mainDepots.printDepotLinkedList(ps);
 
 	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+	// CREATE_INITIAL_ROUTES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	public void createInitialRoutes() {
+		//OptInfo has old and new attributes
+		PVRPDepot currDepot = null; //current depot
+		PVRPShipment currShip = null; //current shipment
+		//int countLoop=0;
+
+		//check if selection and insertion type methods have been selected
+		if (ProblemInfo.selectShipType == null) {
+			Settings.printDebug(Settings.ERROR,
+									   "No selection shipment type has been assigned");
+
+		}
+		if (ProblemInfo.insertShipType == null) {
+			Settings.printDebug(Settings.ERROR,
+									   "No insertion shipment type has been assigned");
+		}
+
+
+		//countLoop=1;
+		while (!mainShipments.isAllShipsAssigned()) {
+			double x, y;
+			int i = 0;
+			//Get the x an y coordinate of the depot
+			//Then use those to get the customer, that has not been allocated,
+			// that is closest to the depot
+			currDepot = (PVRPDepot) mainDepots.getPVRPHead().getNext();
+			x = mainDepots.getHead().getXCoord();
+			y = mainDepots.getHead().getYCoord();
+			//Send the entire mainDepots and mainShipments to get the next shipment
+			//to be inserted including the current depot
+			PVRPShipment theShipment = mainShipments.getNextInsertShipment(mainDepots,
+																				 currDepot, mainShipments, currShip);
+
+			if (theShipment == null) { //shipment is null, print error message
+				Settings.printDebug(Settings.COMMENT, "No shipment was selected");
+			}
+			//The selected shipment will be inserted into the route
+			if (!mainDepots.insertShipment(theShipment)) {
+				Settings.printDebug(Settings.COMMENT, "The Shipment: <" + theShipment.getIndex() +
+															  "> cannot be routed");
+			}
+			else {
+				Settings.printDebug(Settings.COMMENT,
+										   "The Shipment: <" + theShipment.getIndex() +// " " + theShipment +
+												   "> was routed");
+				//tag the shipment as being routed
+				theShipment.setIsAssigned(true);
+			}
+		}
+
+		ProblemInfo.depotLLLevelCostF.calculateTotalsStats(mainDepots);
+	}
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 }

@@ -1,9 +1,22 @@
+//PVRP PROBLEM
+//CPSC 464
+//AARON ROCKBURN; JOSHUA SARVER
+
+//***********	DECLARATION_S_OTHER	**********************************************************************************\\
+// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+//PACKAGE TITLE
 package edu.sru.thangiah.zeus.pvrp;
 
+
+//IMPORT
 import edu.sru.thangiah.zeus.core.Nodes;
 
-/**
- * Created by joshuasarver on 9/13/2014.
- */
-public class PVRPNodes extends Nodes {
+
+//CLASS
+public class PVRPNodes extends Nodes
+{
+
 }

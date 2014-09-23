@@ -1,7 +1,24 @@
+//PVRP PROBLEM
+//CPSC 464
+//AARON ROCKBURN; JOSHUA SARVER
+
+//***********	DECLARATION_S_OTHER	**********************************************************************************\\
+// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+//PACKAGE TITLE
 package edu.sru.thangiah.zeus.pvrp.pvrpqualityassurance;
 
-/**
- * Created by joshuasarver on 9/13/2014.
- */
-public class PVRPQANode {
+
+//IMPORTS
+import edu.sru.thangiah.zeus.qualityassurance.QANode;
+
+
+
+//CLASS
+public class 	PVRPQANode
+				extends QANode
+				implements java.io.Serializable, java.lang.Cloneable
+{
 }
