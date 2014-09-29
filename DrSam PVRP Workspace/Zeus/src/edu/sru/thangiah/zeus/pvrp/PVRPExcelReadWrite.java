@@ -41,6 +41,8 @@ public class PVRPExcelReadWrite
 	public int demandQ;
 	public int frequency;
 	public int numberCombinations;
+	public int truckCapacity;
+	public int truckMaxDist; 
 
 	public PVRPShipmentLinkedList mainShipments = new PVRPShipmentLinkedList();
 	public PVRPDepot mainDepots;
@@ -108,7 +110,7 @@ public class PVRPExcelReadWrite
 
 						//second cell -- the number of planning days/horizon (m)
 						case 1:
-							planningDays = (int) currentCellValue;
+							numberVehicles = (int) currentCellValue;
 							break;
 
 						//third cell -- the number of nodes (customers)
@@ -118,7 +120,7 @@ public class PVRPExcelReadWrite
 
 						//fourth cell -- number of vehicles
 						case 3:
-							numberVehicles = (int) currentCellValue;
+							planningDays = (int) currentCellValue;
 					}
 					cellCount++;    //increment cell counter so we can move through FSM
 				}
@@ -129,7 +131,7 @@ public class PVRPExcelReadWrite
 				PVRPProblemInfo.noOfVehs = numberVehicles;
 			}
 			//else if the current row is between the header row (Read above) and the nodes (customer) rows
-			else if (row.getRowNum() < numberVehicles && row.getRowNum() > 0)      //don't forget the header row adds one
+			else if (row.getRowNum() < planningDays && row.getRowNum() > 0)      //don't forget the header row adds one
 			{
 				cellCount = 0;
 
@@ -137,18 +139,18 @@ public class PVRPExcelReadWrite
 				{
 					cell = (Cell) cellIterator.next();            //get dat cell
 					cell.setCellType(typeNumeric);
-					float cellData = (float) cell.getNumericCellValue();    //
+					float cellData = (float) cell.getNumericCellValue();    
 					if (cellCount == 0)
 					{
-						//	list.truckInfo.addLast(cellData);		//WHAT THE FUCK IS THIS TRUCKINFO ******************>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<
+						truckMaxDist = (int) cellData;	//set max distance truck can travel
 					}
 					else if (cellCount == 1)
 					{
-						//	list.truckInfo.addLast(cellData);		//WHAT THE FUCK IS THIS TRUCKINFO******************>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<
+						truckCapacity = (int) cellData;		//set truck capacity
 					}
 				}
 			}
-			else if (row.getRowNum() > numberVehicles)    //else we are in NODE TERRITORY :D))))))
+			else if (row.getRowNum() > planningDays)    //else we are in NODE TERRITORY :D))))))
 			{
 				cellCount = 0;
 				int listIndex = 0;
@@ -192,7 +194,7 @@ public class PVRPExcelReadWrite
 					cellCount++;
 				}
 
-				if (row.getRowNum() == numberVehicles + 1)
+				if (row.getRowNum() == planningDays + 1)
 				{                //first row in nodes is a DEPOT
 					mainDepots = new PVRPDepot(nodeNumber, xCoordinates, yCoordinates);
 				}

@@ -38,8 +38,8 @@ public class PVRP
 	//***********	CLASS_VARIABLES	**********************************************************************************\\
 	//PROBLEM DATA VARIABLES
 	double	depotXCoordinates 	= 0,
-			depotYCoordinates 	= 0;
-	int 	vehicleCapacity 	= 0;
+			depotYCoordinates 	= 0,
+			vehicleCapacity 	= 0;
 
 	//NODES VARIABLES
 	int 	customerNumber 	= 0;
@@ -80,6 +80,8 @@ public class PVRP
 		Depot 		thisDepot;
 		int 		type,
 					depotNo,
+					totalDemand,
+					totalCapacity,
 					countAssignLoop;
 		String 		outputFileName;
 
@@ -103,12 +105,22 @@ public class PVRP
 			Settings.printDebug(Settings.ERROR, "VRP: Shipment linked list is empty");
 		}
 
-		ProblemInfo.selectShipType = new SmallestPolarAngleToDepot();
+		/*ProblemInfo.selectShipType = new SmallestPolarAngleToDepot();
 		Settings.printDebug(Settings.COMMENT, SmallestPolarAngleToDepot.WhoAmI());
 
 		//set up the shipment insertion type
 		ProblemInfo.insertShipType = new LinearGreedyInsertShipment();
-		Settings.printDebug(Settings.COMMENT, LinearGreedyInsertShipment.WhoAmI());
+		Settings.printDebug(Settings.COMMENT, LinearGreedyInsertShipment.WhoAmI());*/
+		
+		//relaxation of capacity
+		
+		//not sure if this function does what I think it does. I don't have the core classes right now to look at it and check
+		totalDemand = mainShipments.getTotalDemand(); 	//get total demand for all customers. 
+		totalCapacity = ProblemInfo.noOfVehs * excel.truckCapacity;	//get total capacity for all trucks on a day 
+		
+		if(totalCapacity >= totalDemand * .9){
+			vehicleCapacity = excel.truckCapacity * 1.1;
+		}
 
 		//Capture the CPU time required for solving the problem
 		startTime = System.currentTimeMillis();
@@ -257,10 +269,41 @@ public class PVRP
 			else {
 				Settings.printDebug(Settings.COMMENT,
 										   "The Shipment: <" + theShipment.getIndex() +// " " + theShipment +
-												   "> was routed");
+												   "> was routed");		
+				//while theShipment is not the last shipment in the list
+				/*while(theShipment != mainShipments.getTail()){
+					
+					//assign a day combination to the customer
+					
+				}*/
 				//tag the shipment as being routed
 				theShipment.setIsAssigned(true);
 			}
+			
+			//define an array to hold capacities for all days in period
+			int[] dayCapacity = new int[ProblemInfo.noOfDays];
+			
+			//check to see if demand for each day exceeds total capacity of trucks for that day
+			for(int j = 0; j < ProblemInfo.noOfDays; j ++){
+				//variable that tracks which day is being filled
+				int dayToFill = j;
+				
+				//run through all other days to see how their capacities compare to the current day capacity
+				for(int q = 0; q < ProblemInfo.noOfDays; q++){
+					
+					//if the day to be filled has not changed
+					if(dayToFill == j){
+						//compare the capacity and if the j capacity is larger than the q capacity, switch to day q
+						if(dayCapacity[j] > dayCapacity[q]){
+							dayToFill = q;
+						}
+					}
+				}
+				//dayCapacity[dayToFill] += mainShipments.getDemand(j); //define this method
+				
+				//assign customer to day and truck 
+			}
+			
 		}
 
 		ProblemInfo.depotLLLevelCostF.calculateTotalsStats(mainDepots);
