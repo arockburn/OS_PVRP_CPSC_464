@@ -202,6 +202,13 @@ public class PVRPShipmentLinkedList
 
 	}
 	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	
+	public int getDemand(int index){
+		int demand;
+		Shipment ship = super.getHead();
+		PVRPShipment PVRPShip = (PVRPShipment) ship;
+		
+		
+		return PVRPShip.getDemand();
+	}
 }
 

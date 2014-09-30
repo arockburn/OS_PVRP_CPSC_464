@@ -118,6 +118,7 @@ public class PVRP
 		totalDemand = mainShipments.getTotalDemand(); 	//get total demand for all customers. 
 		totalCapacity = ProblemInfo.noOfVehs * excel.truckCapacity;	//get total capacity for all trucks on a day 
 		
+		//relax capacity
 		if(totalCapacity >= totalDemand * .9){
 			vehicleCapacity = excel.truckCapacity * 1.1;
 		}
@@ -283,6 +284,7 @@ public class PVRP
 			//define an array to hold capacities for all days in period
 			int[] dayCapacity = new int[ProblemInfo.noOfDays];
 			
+			
 			//check to see if demand for each day exceeds total capacity of trucks for that day
 			for(int j = 0; j < ProblemInfo.noOfDays; j ++){
 				//variable that tracks which day is being filled
@@ -293,15 +295,15 @@ public class PVRP
 					
 					//if the day to be filled has not changed
 					if(dayToFill == j){
-						//compare the capacity and if the j capacity is larger than the q capacity, switch to day q
-						if(dayCapacity[j] > dayCapacity[q]){
+						//compare the capacity and if the j capacity is larger than the q capacity, 
+						//and q does not exceed the capacity for all trucks, switch to day q
+						if(dayCapacity[j] > dayCapacity[q] && dayCapacity[q] <= (ProblemInfo.noOfVehs * vehicleCapacity)){
 							dayToFill = q;
 						}
 					}
 				}
-				//dayCapacity[dayToFill] += mainShipments.getDemand(j); //define this method
+				dayCapacity[dayToFill] += mainShipments.getDemand(j);
 				
-				//assign customer to day and truck 
 			}
 			
 		}
