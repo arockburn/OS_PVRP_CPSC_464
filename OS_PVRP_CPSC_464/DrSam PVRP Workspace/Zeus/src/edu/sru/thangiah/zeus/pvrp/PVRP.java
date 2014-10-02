@@ -414,6 +414,7 @@ public class PVRP {
 
 		PVRPDepot depot = new PVRPDepot(nodeNumber, xCoordinates, yCoordinates); //n is the number of customers
 		mainDepots.insertDepotLast(depot);
+		mainDepots.setHead(depot);
 
 		//Each depot has a mainTrucks. The different truck types available are
 		//inserted into the mainTrucks type. For the VRP, there is only one truck type
@@ -426,11 +427,18 @@ public class PVRP {
 
 		row = (Row) rowIterator.next();        //get the next row
 		cellIterator = row.cellIterator();    //an iterator for columns
+		boolean firstNode = true;
 
 
 		while(row.getRowNum() > t + 1 && rowIterator.hasNext()){
 			cellCount = 0;
 			int listIndex = 0;
+			if(!firstNode){
+				row = (Row) rowIterator.next();        //get the next row
+				cellIterator = row.cellIterator();    //an iterator for columns
+			}
+			else
+				firstNode = false;
 
 			while (cellIterator.hasNext())                //while we have another cell
 			{
@@ -474,17 +482,27 @@ public class PVRP {
 			for (int l = 0; l < numberCombinations; l++)
 			{
 				currentComb[l] = mainShipments.getCurrentComb(list, l, t); // current visit comb
-				mainShipments.insertShipment(nodeNumber, xCoordinates, yCoordinates, DUMMY, demandQ, frequency, numberCombinations, list, currentComb);
 				//mainShipments.
 				//insert the customer data into the linked list
 			}
-
-			row = (Row) rowIterator.next();        //get the next row
-			cellIterator = row.cellIterator();    //an iterator for columns
-
+			PVRPShipment newShip = new PVRPShipment(nodeNumber, xCoordinates, yCoordinates, DUMMY, demandQ, frequency, numberCombinations, list, currentComb);
+			
+			
+			if(nodeNumber == 1){
+				//set head
+				mainShipments.insertLast(newShip);
+				mainShipments.setHead(newShip);
+			}
+			else{
+				//set tail to latest entry
+				mainShipments.insertLast(newShip);
+			}
+			
+			if(!rowIterator.hasNext()){
+				mainShipments.setTail(newShip);
+			}
+			
 		}
-
-
 
 
 		return 1;

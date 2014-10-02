@@ -253,10 +253,11 @@ public class PVRPExcelReadWrite
 					for (int l = 0; l < numberCombinations; l++)
 					{
 						currentCombination[l] = mainShipments.getCurrentComb(list, l, planningDays); // current visit comb
-						mainShipments.insertShipment(nodeNumber, xCoordinates, yCoordinates, DUMMY, demandQ, frequency, numberCombinations, list, currentCombination);
 						//mainShipments.
 						//insert the customer data into the linked list
 					}
+					mainShipments.insertShipment(nodeNumber, xCoordinates, yCoordinates, DUMMY, demandQ, frequency, numberCombinations, list, currentCombination);
+					
 				}
 
 			}
