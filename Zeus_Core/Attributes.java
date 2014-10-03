@@ -1,126 +1,117 @@
-package edu.sru.thangiah.zeus.core;
+/*   1:    */ package edu.sru.thangiah.zeus.core;
+/*   2:    */ 
+/*   3:    */ import java.io.Serializable;
+/*   4:    */ import java.text.DecimalFormat;
+/*   5:    */ 
+/*   6:    */ public class Attributes
+/*   7:    */   implements Serializable, Cloneable
+/*   8:    */ {
+/*   9: 17 */   private double totalDemand = 0.0D;
+/*  10: 18 */   private double totalDistance = 0.0D;
+/*  11: 19 */   private double totalCost = 0.0D;
+/*  12: 23 */   private double totalTravelTime = 0.0D;
+/*  13: 24 */   private double maxTravelTime = 0.0D;
+/*  14: 25 */   private double avgTravelTime = 0.0D;
+/*  15:    */   
+/*  16:    */   public String toString()
+/*  17:    */   {
+/*  18: 38 */     DecimalFormat df = new DecimalFormat("0.00");
+/*  19:    */     
+/*  20: 40 */     return " totQ=" + df.format(this.totalDemand) + " totD=" + 
+/*  21: 41 */       df.format(this.totalDistance) + " $" + df.format(this.totalCost);
+/*  22:    */   }
+/*  23:    */   
+/*  24:    */   public double getTotalDemand()
+/*  25:    */   {
+/*  26: 45 */     return this.totalDemand;
+/*  27:    */   }
+/*  28:    */   
+/*  29:    */   public void setTotalDemand(double totalDemand)
+/*  30:    */   {
+/*  31: 49 */     this.totalDemand = totalDemand;
+/*  32:    */   }
+/*  33:    */   
+/*  34:    */   public double getTotalDistance()
+/*  35:    */   {
+/*  36: 53 */     return this.totalDistance;
+/*  37:    */   }
+/*  38:    */   
+/*  39:    */   public void setTotalDistance(double totalDistance)
+/*  40:    */   {
+/*  41: 57 */     this.totalDistance = totalDistance;
+/*  42:    */   }
+/*  43:    */   
+/*  44:    */   public double getTotalCost()
+/*  45:    */   {
+/*  46: 61 */     return this.totalCost;
+/*  47:    */   }
+/*  48:    */   
+/*  49:    */   public void setTotalCost(double totalCost)
+/*  50:    */   {
+/*  51: 65 */     this.totalCost = totalCost;
+/*  52:    */   }
+/*  53:    */   
+/*  54:    */   public double getTotalTravelTime()
+/*  55:    */   {
+/*  56: 69 */     return this.totalTravelTime;
+/*  57:    */   }
+/*  58:    */   
+/*  59:    */   public void setTotalTravelTime(double totalTravelTime)
+/*  60:    */   {
+/*  61: 73 */     this.totalTravelTime = totalTravelTime;
+/*  62:    */   }
+/*  63:    */   
+/*  64:    */   public double getMaxTravelTime()
+/*  65:    */   {
+/*  66: 77 */     return this.maxTravelTime;
+/*  67:    */   }
+/*  68:    */   
+/*  69:    */   public void setMaxTravelTime(double maxTravelTime)
+/*  70:    */   {
+/*  71: 81 */     this.maxTravelTime = maxTravelTime;
+/*  72:    */   }
+/*  73:    */   
+/*  74:    */   public double getAvgTravelTime()
+/*  75:    */   {
+/*  76: 85 */     return this.avgTravelTime;
+/*  77:    */   }
+/*  78:    */   
+/*  79:    */   public void setAvgTravelTime(double avgTravelTime)
+/*  80:    */   {
+/*  81: 89 */     this.avgTravelTime = avgTravelTime;
+/*  82:    */   }
+/*  83:    */   
+/*  84:    */   public String toDetailedString()
+/*  85:    */   {
+/*  86: 98 */     DecimalFormat df = new DecimalFormat("0.00");
+/*  87:    */     
+/*  88:100 */     return "Total Demand = " + df.format(this.totalDemand) + 
+/*  89:101 */       "| Total Distance = " + df.format(this.totalDistance) + 
+/*  90:102 */       "| Total Travel Time = " + df.format(this.totalTravelTime) + 
+/*  91:103 */       "| Total Cost = $" + df.format(this.totalCost) + "|";
+/*  92:    */   }
+/*  93:    */   
+/*  94:    */   public Object clone()
+/*  95:    */   {
+/*  96:111 */     Attributes clonedAttributes = new Attributes();
+/*  97:    */     
+/*  98:113 */     clonedAttributes.avgTravelTime = this.avgTravelTime;
+/*  99:114 */     clonedAttributes.maxTravelTime = this.maxTravelTime;
+/* 100:    */     
+/* 101:116 */     clonedAttributes.totalCost = this.totalCost;
+/* 102:    */     
+/* 103:118 */     clonedAttributes.totalDemand = this.totalDemand;
+/* 104:119 */     clonedAttributes.totalDistance = this.totalDistance;
+/* 105:120 */     clonedAttributes.totalTravelTime = this.totalTravelTime;
+/* 106:    */     
+/* 107:    */ 
+/* 108:    */ 
+/* 109:124 */     return clonedAttributes;
+/* 110:    */   }
+/* 111:    */ }
 
-import java.text.*;
-
-/**
- * Contains all the infomation calculated by the cost functions
- * <p>Title: Attributes</p>
- * <p>Description: Contains all the infomation calculated by the cost functions</p>
- * <p>Copyright: Copyright (c) 2005</p>
- * <p>Company: </p>
- * @author Sam R. Thangiah
- * @version 2.0
+
+/* Location:           E:\DrSam PVRP Workspace\zeuscore\
+ * Qualified Name:     edu.sru.thangiah.zeus.core.Attributes
+ * JD-Core Version:    0.7.0.1
  */
-public class Attributes
-/** @todo should the variables be declared as private and accessed through methods */
-    implements java.io.Serializable, java.lang.Cloneable {
-  private double totalDemand = 0; //total demand for the route
-  private double totalDistance = 0; //total distance of the route
-  private double totalCost = 0; //total cost of the route
-  //public double totalConstraintCost = 0; //total constraint cost of the route
-  //public double totalCrossRoadPenaltyCost = 0; //total penalty cost due to student crossing the road
-  //public double totalTurnAroundPenaltyCost = 0; //total penalty cost due to bus turn arounds
-  private double totalTravelTime = 0; //total amount of time bus is traveling on the route
-  private double maxTravelTime = 0; //max travel time for a student
-  private double avgTravelTime = 0; //average travel time for the students
-
-  /**
-   * Constructor
-   */
-  /* public Attributes() {
-   }*/
-
-  /**
-   * Returns a string of the attributes
-   * @return attributes
-   */
-  public String toString() {
-    DecimalFormat df = new DecimalFormat("0.00");
-
-    return " totQ=" + df.format(totalDemand) + " totD=" +
-        df.format(totalDistance) + " $" + df.format(totalCost);
-  }
-
-  public double getTotalDemand() {
-	return totalDemand;
-}
-
-public void setTotalDemand(double totalDemand) {
-	this.totalDemand = totalDemand;
-}
-
-public double getTotalDistance() {
-	return totalDistance;
-}
-
-public void setTotalDistance(double totalDistance) {
-	this.totalDistance = totalDistance;
-}
-
-public double getTotalCost() {
-	return totalCost;
-}
-
-public void setTotalCost(double totalCost) {
-	this.totalCost = totalCost;
-}
-
-public double getTotalTravelTime() {
-	return totalTravelTime;
-}
-
-public void setTotalTravelTime(double totalTravelTime) {
-	this.totalTravelTime = totalTravelTime;
-}
-
-public double getMaxTravelTime() {
-	return maxTravelTime;
-}
-
-public void setMaxTravelTime(double maxTravelTime) {
-	this.maxTravelTime = maxTravelTime;
-}
-
-public double getAvgTravelTime() {
-	return avgTravelTime;
-}
-
-public void setAvgTravelTime(double avgTravelTime) {
-	this.avgTravelTime = avgTravelTime;
-}
-
-/**
-   * Returns a detailed, pipe-delimited string. For use in the interface.
-   * NOTE: There must be a pipe after the final field!
-   * @return detailed string
-   */
-  public String toDetailedString() {
-    DecimalFormat df = new DecimalFormat("0.00");
-
-    return "Total Demand = " + df.format(totalDemand) +
-        "| Total Distance = " + df.format(totalDistance) +
-        "| Total Travel Time = " + df.format(totalTravelTime) +
-        "| Total Cost = $" + df.format(totalCost) + "|";
-  }
-
-  /**
-   * Creates a clone of this object.
-   * @return Object the clone
-   */
-  public Object clone() {
-    Attributes clonedAttributes = new Attributes();
-
-    clonedAttributes.avgTravelTime = this.avgTravelTime;
-    clonedAttributes.maxTravelTime = this.maxTravelTime;
-    //clonedAttributes.totalConstraintCost = this.totalConstraintCost;
-    clonedAttributes.totalCost = this.totalCost;
-    //clonedAttributes.totalCrossRoadPenaltyCost = this.totalCrossRoadPenaltyCost;
-    clonedAttributes.totalDemand = this.totalDemand;
-    clonedAttributes.totalDistance = this.totalDistance;
-    clonedAttributes.totalTravelTime = this.totalTravelTime;
-    //clonedAttributes.totalTurnAroundPenaltyCost = this.
-    //    totalTurnAroundPenaltyCost;
-
-    return clonedAttributes;
-  }
-}

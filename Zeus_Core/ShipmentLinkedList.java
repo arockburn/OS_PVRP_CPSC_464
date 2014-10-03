@@ -1,483 +1,266 @@
-package edu.sru.thangiah.zeus.core;
+/*   1:    */ package edu.sru.thangiah.zeus.core;
+/*   2:    */ 
+/*   3:    */ import java.io.PrintStream;
+/*   4:    */ 
+/*   5:    */ public class ShipmentLinkedList
+/*   6:    */ {
+/*   7:    */   private Shipment head;
+/*   8:    */   private Shipment tail;
+/*   9:    */   private int numShipments;
+/*  10:    */   private int totalDemand;
+/*  11:    */   
+/*  12:    */   public void linkHeadTail()
+/*  13:    */   {
+/*  14: 40 */     this.head.setNext(this.tail);
+/*  15: 41 */     this.tail.setPrev(this.head);
+/*  16: 42 */     this.head.setPrev(null);
+/*  17: 43 */     this.tail.setNext(null);
+/*  18:    */   }
+/*  19:    */   
+/*  20:    */   public Shipment getHead()
+/*  21:    */   {
+/*  22: 51 */     return this.head;
+/*  23:    */   }
+/*  24:    */   
+/*  25:    */   public Shipment getTail()
+/*  26:    */   {
+/*  27: 59 */     return this.tail;
+/*  28:    */   }
+/*  29:    */   
+/*  30:    */   public void setHead(Shipment head)
+/*  31:    */   {
+/*  32: 63 */     this.head = head;
+/*  33:    */   }
+/*  34:    */   
+/*  35:    */   public void setTail(Shipment tail)
+/*  36:    */   {
+/*  37: 67 */     this.tail = tail;
+/*  38:    */   }
+/*  39:    */   
+/*  40:    */   public int getNumShipments()
+/*  41:    */   {
+/*  42: 75 */     return this.numShipments;
+/*  43:    */   }
+/*  44:    */   
+/*  45:    */   public int getTotalDemand()
+/*  46:    */   {
+/*  47: 79 */     return this.totalDemand;
+/*  48:    */   }
+/*  49:    */   
+/*  50:    */   public void setTotalDemand(int totalDemand)
+/*  51:    */   {
+/*  52: 83 */     this.totalDemand = totalDemand;
+/*  53:    */   }
+/*  54:    */   
+/*  55:    */   public void setNumShipments(int numShipments)
+/*  56:    */   {
+/*  57: 87 */     this.numShipments = numShipments;
+/*  58:    */   }
+/*  59:    */   
+/*  60:    */   public boolean insertLast(Shipment shipment)
+/*  61:    */   {
+/*  62: 98 */     if (this.head.getNext() == this.tail)
+/*  63:    */     {
+/*  64: 99 */       this.head.setNext(shipment);
+/*  65:100 */       this.tail.setPrev(shipment);
+/*  66:101 */       shipment.setPrev(this.head);
+/*  67:102 */       shipment.setNext(this.tail);
+/*  68:    */     }
+/*  69:    */     else
+/*  70:    */     {
+/*  71:106 */       shipment.setNext(this.tail);
+/*  72:107 */       shipment.setPrev(this.tail.getPrev());
+/*  73:108 */       this.tail.getPrev().setNext(shipment);
+/*  74:109 */       this.tail.setPrev(shipment);
+/*  75:    */     }
+/*  76:111 */     this.numShipments += 1;
+/*  77:112 */     this.totalDemand += shipment.getDemand();
+/*  78:113 */     return true;
+/*  79:    */   }
+/*  80:    */   
+/*  81:    */   public Shipment find(int key)
+/*  82:    */   {
+/*  83:122 */     boolean isDiagnostic = false;
+/*  84:123 */     Shipment current = this.head.getNext();
+/*  85:125 */     while (current.getNext() != this.tail)
+/*  86:    */     {
+/*  87:126 */       if (current.getIndex() == key) {
+/*  88:    */         break;
+/*  89:    */       }
+/*  90:130 */       current = current.getNext();
+/*  91:    */     }
+/*  92:133 */     if (isDiagnostic) {
+/*  93:134 */       System.out.println("found " + current.getIndex());
+/*  94:    */     }
+/*  95:137 */     return current;
+/*  96:    */   }
+/*  97:    */   
+/*  98:    */   public boolean clearAllSelected()
+/*  99:    */   {
+/* 100:146 */     Shipment ship = this.head.getNext();
+/* 101:148 */     while (ship != this.tail)
+/* 102:    */     {
+/* 103:149 */       ship.setIsSelected(false);
+/* 104:150 */       ship = ship.getNext();
+/* 105:    */     }
+/* 106:152 */     return true;
+/* 107:    */   }
+/* 108:    */   
+/* 109:    */   public boolean isAllShipsSelected()
+/* 110:    */   {
+/* 111:160 */     Shipment ship = this.head.getNext();
+/* 112:162 */     while (ship != this.tail)
+/* 113:    */     {
+/* 114:163 */       if (!ship.getIsSelected()) {
+/* 115:164 */         return false;
+/* 116:    */       }
+/* 117:167 */       ship = ship.getNext();
+/* 118:    */     }
+/* 119:170 */     return true;
+/* 120:    */   }
+/* 121:    */   
+/* 122:    */   public boolean isAllShipsAssigned()
+/* 123:    */   {
+/* 124:178 */     Shipment ship = this.head.getNext();
+/* 125:180 */     while (ship != this.tail)
+/* 126:    */     {
+/* 127:181 */       if (!ship.getIsAssigned()) {
+/* 128:182 */         return false;
+/* 129:    */       }
+/* 130:185 */       ship = ship.getNext();
+/* 131:    */     }
+/* 132:188 */     return true;
+/* 133:    */   }
+/* 134:    */   
+/* 135:    */   protected double calcPolarAngle(double x1, double y1, double x, double y)
+/* 136:    */   {
+/* 137:201 */     double radian = 57.295780000000001D;
+/* 138:202 */     double slope = 0.0D;
+/* 139:    */     
+/* 140:    */ 
+/* 141:    */ 
+/* 142:    */ 
+/* 143:207 */     double xrun = x - x1;
+/* 144:208 */     double yrise = y - y1;
+/* 145:    */     double angle;
+/* 146:    */     double angle;
+/* 147:210 */     if (xrun > 0.0D)
+/* 148:    */     {
+/* 149:211 */       slope = yrise / xrun;
+/* 150:    */       double angle;
+/* 151:213 */       if (yrise >= 0.0D) {
+/* 152:214 */         angle = Math.atan(slope) * radian;
+/* 153:    */       } else {
+/* 154:217 */         angle = 360.0D + Math.atan(slope) * radian;
+/* 155:    */       }
+/* 156:    */     }
+/* 157:    */     else
+/* 158:    */     {
+/* 159:    */       double angle;
+/* 160:220 */       if (xrun == 0.0D)
+/* 161:    */       {
+/* 162:    */         double angle;
+/* 163:221 */         if (yrise >= 0.0D) {
+/* 164:222 */           angle = 90.0D;
+/* 165:    */         } else {
+/* 166:225 */           angle = 270.0D;
+/* 167:    */         }
+/* 168:    */       }
+/* 169:    */       else
+/* 170:    */       {
+/* 171:229 */         slope = yrise / xrun;
+/* 172:230 */         angle = 180.0D + Math.atan(slope) * radian;
+/* 173:    */       }
+/* 174:    */     }
+/* 175:233 */     return angle;
+/* 176:    */   }
+/* 177:    */   
+/* 178:    */   protected double calcDist(double x1, double x2, double y1, double y2)
+/* 179:    */   {
+/* 180:245 */     double d = 0.0D;
+/* 181:    */     try
+/* 182:    */     {
+/* 183:248 */       d = Math.sqrt((x2 - x1) * (x2 - x1) + 
+/* 184:249 */         (y2 - y1) * (y2 - y1));
+/* 185:    */     }
+/* 186:    */     catch (ArithmeticException e)
+/* 187:    */     {
+/* 188:252 */       System.out.println(
+/* 189:253 */         "Arithmetic Exception in calculating distance in ShipmentLinkedList " + 
+/* 190:254 */         e);
+/* 191:    */     }
+/* 192:256 */     return d;
+/* 193:    */   }
+/* 194:    */   
+/* 195:    */   public void writeShipments(PrintStream out)
+/* 196:    */   {
+/* 197:264 */     out.println(this.numShipments);
+/* 198:    */     
+/* 199:266 */     Shipment ship = this.head.getNext();
+/* 200:267 */     while (ship != this.tail)
+/* 201:    */     {
+/* 202:268 */       out.println(ship.getIndex() + " " + ship.getTruckTypeNeeded() + " " + 
+/* 203:269 */         ship.getDemand() + " " + ship.getXCoord() + " " + 
+/* 204:    */         
+/* 205:271 */         ship.getYCoord());
+/* 206:272 */       ship = ship.getNext();
+/* 207:    */     }
+/* 208:    */   }
+/* 209:    */   
+/* 210:    */   public int[] getCurrentComb(int[] combList, int combIndex, int t)
+/* 211:    */   {
+/* 212:287 */     int[] decodedComb = new int[t];
+/* 213:    */     
+/* 214:    */ 
+/* 215:290 */     int combCode = combList[combIndex];
+/* 216:291 */     decodedComb = decodeTheComb(combCode, t);
+/* 217:292 */     return decodedComb;
+/* 218:    */   }
+/* 219:    */   
+/* 220:    */   public int[] decodeTheComb(int code, int t)
+/* 221:    */   {
+/* 222:306 */     int num = code;
+/* 223:307 */     int quot = -1;
+/* 224:    */     
+/* 225:    */ 
+/* 226:310 */     int[] tempArray = new int[t];
+/* 227:311 */     int[] decode = new int[t];
+/* 228:312 */     int count = 0;
+/* 229:313 */     int numDays = t;
+/* 230:314 */     while (quot != 0)
+/* 231:    */     {
+/* 232:315 */       quot = num / 2;
+/* 233:316 */       int rem = num % 2;
+/* 234:    */       
+/* 235:    */ 
+/* 236:319 */       tempArray[count] = rem;
+/* 237:320 */       count++;
+/* 238:321 */       num = quot;
+/* 239:    */     }
+/* 240:324 */     for (int b = 0; b < t; b++) {
+/* 241:325 */       decode[b] = tempArray[(--numDays)];
+/* 242:    */     }
+/* 243:331 */     return decode;
+/* 244:    */   }
+/* 245:    */   
+/* 246:    */   public void displayBackwardList()
+/* 247:    */   {
+/* 248:412 */     System.out.print("List (last to first): ");
+/* 249:413 */     Shipment current = this.tail;
+/* 250:414 */     while (current != this.head.getNext()) {
+/* 251:416 */       current = current.getPrev();
+/* 252:    */     }
+/* 253:419 */     System.out.println("");
+/* 254:    */   }
+/* 255:    */   
+/* 256:    */   public boolean isEmpty()
+/* 257:    */   {
+/* 258:427 */     return this.head.getNext() == null;
+/* 259:    */   }
+/* 260:    */ }
 
-import java.io.PrintStream;
-
-/**
- * Maintains all of the Shipments of the VRP.
- * Title: ShipmentLinkedList
- * Description: This class maintains all of the Shipments of the VRP.  Further
- *              information about each of the shipments is stored in the Shipment class.
- * <p>Copyright: Copyright (c) 2005</p>
- * <p>Company: </p>
- * @author Sam R. Thangiah
- * @version 2.0
+
+/* Location:           E:\DrSam PVRP Workspace\zeuscore\
+ * Qualified Name:     edu.sru.thangiah.zeus.core.ShipmentLinkedList
+ * JD-Core Version:    0.7.0.1
  */
-
-/* TO DO
- * 
- * insert first method
- * 
- */
-public class ShipmentLinkedList {
-  private Shipment head;
-  private Shipment tail;
-  private int numShipments; //no of pickuppoints
-  private int totalDemand;  //total no of customers for all the pickup points
-
-  /**
-   * Constructor
-   */
-  public ShipmentLinkedList() 
-  {
-	  //head = new Shipment();
-      //tail = new Shipment();
-      //head.setNext(tail);
-	  //tail.setPrev(head);
-      //numShipments = 0;
-  }
-  
-  public void linkHeadTail() {
-      head.setNext(tail);
-	  tail.setPrev(head);
-	  head.setPrev(null);
-	  tail.setNext(null);
-  }
-  
-  /**
-   * Returns the first shipment in the linked list
-   * @return first shipment
-   */
-  public Shipment getHead() {
-    return head;
-  }
-
-  /**
-   * Returns the last shipment in the linked list
-   * @return last shipment
-   */
-  public Shipment getTail() {
-    return tail;
-  }
-
-  public void setHead(Shipment head) {
-	this.head = head;
-}
-
-public void setTail(Shipment tail) {
-	this.tail = tail;
-}
-
-/**
-   * Returns the number of shipment in the linked list
-   * @return number of shipments
-   */
-  public int getNumShipments() {
-    return numShipments;
-  }
-
-  public int getTotalDemand() {
-	return totalDemand;
-}
-
-public void setTotalDemand(int totalDemand) {
-	this.totalDemand = totalDemand;
-}
-
-public void setNumShipments(int numShipments) {
-	this.numShipments = numShipments;
-}
-
-/**
-   * Inserts student into last location in the shipment linked list.
-   * @param shipment the student to be inserted into the last location of the linked
-   * list.
-   */
-  public boolean insertLast(Shipment shipment) 
-  {
-	  //route is empty
-	  if (head.getNext() == tail) {
-		  head.setNext(shipment);
-		  tail.setPrev(shipment);
-		  shipment.setPrev(head);
-		  shipment.setNext(tail);
-	  }
-	  // the route is not empty
-	  else {
-		  shipment.setNext(tail);
-		  shipment.setPrev(tail.getPrev());
-		  tail.getPrev().setNext(shipment);
-		  tail.setPrev(shipment);
-	  }
-	  numShipments++; //increment number of pickup points
-	  totalDemand+=shipment.getDemand(); //get the total number of students per pickup point
-	  return true; 
-  }
-
-  /**
-   * find a shipment in the linked list with shipment number as key
-   * @param key is the unique address of the shipment
-   * @return Shipment Pointer to the located shipment, null if shipment was not found
-   */
-  public Shipment find(int key) {
-    boolean isDiagnostic = false;
-    Shipment current = head.getNext();
-
-    while (current.getNext() != tail) {
-      if (current.getIndex() == key) {
-        break;
-      }
-
-      current = current.getNext();
-    }
-
-    if (isDiagnostic) {
-      System.out.println("found " + current.getIndex());
-    }
-
-    return current;
-  }
-
-  /**
-   * Sets all the isSelected flags to false for all the shipments in the linked
-   * list.
-   * @return true is all shipments have been cleared.
-   */
-  public boolean clearAllSelected() {
-    Shipment ship = head.getNext();
-
-    while (ship != tail) {
-      ship.setIsSelected(false);
-      ship = ship.getNext();
-    }
-    return true;
-  }
-
-  /**
-   * Returns if all shipments have beenselected  or not
-   * @return true- all shipmentsselected, false- all shipments not selected
-   */
-  public boolean isAllShipsSelected() {
-    Shipment ship = head.getNext();
-
-    while (ship != tail) {
-      if (ship.getIsSelected() == false) {
-        return false;
-      }
-      else {
-        ship = ship.getNext();
-      }
-    }
-    return true;
-  }
-
-  /**
-   * Returns if all shipments have been assigned or not
-   * @return true- all shipments assigned, false- all shipments not assigned
-   */
-  public boolean isAllShipsAssigned() {
-    Shipment ship = head.getNext();
-
-    while (ship != tail) {
-      if (ship.getIsAssigned() == false) {
-        return false;
-      }
-      else {
-        ship = ship.getNext();
-      }
-    }
-    return true;
-  }
-
-  /**
-   * Calculate the polar coordinate angle between two points
-   * @param x1 x coordinate of first point
-   * @param y1 y coordinate of first point
-   * @param x x coordinate of second point
-   * @param y y coordinate of second point
-   * @return double the polar coordinate angle
-   */
-  protected double calcPolarAngle(double x1, double y1, double x, double y) {
-    //find the polar coordinate angle between (x1,y1) and (x,y)
-    double radian = 57.29578;
-    double slope = 0;
-    double xrun;
-    double yrise;
-    double angle;
-
-    xrun = x - x1;
-    yrise = y - y1;
-
-    if (xrun > 0) {
-      slope = yrise / xrun;
-
-      if (yrise >= 0) {
-        angle = Math.atan(slope) * radian;
-      }
-      else {
-        angle = 360 + (Math.atan(slope) * radian);
-      }
-    }
-    else if (xrun == 0) {
-      if (yrise >= 0) {
-        angle = 90.0;
-      }
-      else {
-        angle = 270.0;
-      }
-    }
-    else {
-      slope = yrise / xrun;
-      angle = 180 + (Math.atan(slope) * radian);
-    }
-
-    return angle;
-  }
-
-  /**
-   * Calculate the eucledian distance between two points
-   * @param x1 x coordinate of first point
-   * @param y1 y coordinate of first point
-   * @param x2 x coordinate of second point
-   * @param y2 y coordinate of second point
-   * @return double the euclidean distance
-   */
-  protected double calcDist(double x1, double x2, double y1, double y2) {
-    double d = 0;
-
-    try {
-      d = (double) Math.sqrt( (double) ( ( (x2 - x1) * (x2 - x1)) +
-                                        ( (y2 - y1) * (y2 - y1))));
-    }
-    catch (ArithmeticException e) {
-      System.out.println(
-          "Arithmetic Exception in calculating distance in ShipmentLinkedList " +
-          e);
-    }
-    return d;
-  }
-
-  /**
-   * Writes the shipments to the print stream
-   * @param out PrintStream stream to output to
-   */
-  public void writeShipments(PrintStream out) {
-    out.println(this.numShipments);
-
-    Shipment ship = head.getNext();
-    while (ship != tail) {
-      out.println(ship.getIndex() + " " + ship.getTruckTypeNeeded() + " " +
-                  ship.getDemand() + " " + ship.getXCoord() + " " +
-                  //ship.getYCoord() + " " + ship.getPickUpPointName());
-                  ship.getYCoord());
-      ship = ship.getNext();
-    }
-  }
-
-  /**
-   * retrieves the visit combination for a PTSP
-   * Constructor
-   * @param combList   vector of combinations
-   * @param combIndex  index to the combination
-   * @param t          number of days in the planning horizon
-   */
-
-  public int[] getCurrentComb(int[] combList, int combIndex, int t) {
-    //int combIndex;                   //index of chosen visit comb.
-    int combCode;
-    int[] decodedComb = new int[t];
-    //combIndex = (int)((java.lang.Math.random()*a) + 1);
-    //System.out.println("combIndex: " + combIndex);
-    combCode = combList[combIndex];
-    decodedComb = decodeTheComb(combCode, t);
-    return decodedComb;
-
-  }
-
-  /**
-   * decodes the visit combination from an int to array of 1's and 0's rep days
-   * equivalent to bit pattern of code ex: 15 = 1111
-   * code = int to decode, t = #of days in planning horizon
-   * Constructor
-   * @param i integer to decode
-   * @param t number of days in planning horizon
-   */
-
-  public int[] decodeTheComb(int code, int t) {
-    int num = code;
-    int quot = -1; //initialize quotient to enter while
-    int rem; //remainder
-    //replace num with code
-    int[] tempArray = new int[t];
-    int[] decode = new int[t];
-    int count = 0;
-    int numDays = t; //#days in planning horizon
-    while (quot != 0) {
-      quot = num / 2;
-      rem = num % 2;
-      //System.out.println("quot "+quot);
-      //System.out.println("rem "+rem);
-      tempArray[count] = rem;
-      count++;
-      num = quot;
-    }
-    //reverse temp and store in decode
-    for (int b = 0; b < t; b++) {
-      decode[b] = tempArray[--numDays];
-      //print array
-      //for(int b=0; b<t; b++)
-      //System.out.print(b + " : " +decode[b]+"  ");
-      //System.out.println("");
-    }
-    return decode;
-
-  } // end decodeTheComb
-
-  /**
-   * insert the shipment into the linked list
-   * Constructor
-   * @param ind index
-   * @param x x-coordinate
-   * @param y y-coordinate
-   * @param q demand
-   * @param d service time
-   * @param e frequency
-   * @param comb number of combination
-   * @param vComb list of combinations (vector)
-   * @param cuComb number of combinations (matrix)
-   */
-
-  /* public void insertShipment(int num, float x, float y, int q, int d, int e,int comb,String type,
-                       int[] vComb, int[][] cuComb)
-   {
-       if (vComb.length <= ProblemInfo.MAX_COMBINATIONS)
-       {
-         //create an instance of the Shipment
-   Shipment thisShip = new Shipment(num, x, y, d, q, e, comb, type, vComb, cuComb);
-         //add the instance to the linked list - in this case it iis added at the end of the list
-         //the total number of shipments is incremented in the insert
-         insertLast(thisShip);
-       }
-       else
-         System.out.println("ShipmentLinkedList: Maximum number of combinations exceeded");
-   }*/
-
-  /**
-   * insert the shipment into the linked list
-   * Constructor
-   * @param ind index
-   * @param x x-coordinate
-   * @param y y-coordinate
-   * @param q demand
-   * @param d service time
-   * @param e frequency
-   * @param comb number of combination
-   * @param vComb list of combinations (vector)
-   * @param cuComb number of combinations (matrix)
-   */
-
-  /*public void insertShipment(int num, int x, int y, int q, int d, int e,int comb, String type,
-                      int[] vComb, int[][] cuComb)
-     {
-      if (vComb.length <= ProblemInfo.MAX_COMBINATIONS)
-      {
-        //create an instance of the Shipment
-   Shipment thisShip = new Shipment(num, x, y, d, q, e, comb, type, vComb, cuComb);
-        //add the instance to the linked list - in this case it iis added at the end of the list
-        //the total number of shipments is incremented in the insert
-        insertLast(thisShip);
-      }
-      else
-        System.out.println("ShipmentLinkedList: Maximum number of combinations exceeded");
-     }*/
-
-
-  /**
-   * Display the linked list of shipments from first to last
-   */
-
- /* public void displayForwardList() {
-    System.out.print("List (first to last): ");
-    Shipment current = head.getNext();
-    while (current != tail) {
-      //current.displayShipment();
-      current = current.getNext();
-    }
-    System.out.println("");
-  }*/
-
-  /**
-   * Display the linked list of shipments from last to first
-   */
-  public void displayBackwardList() {
-    System.out.print("List (last to first): ");
-    Shipment current = tail;
-    while (current != head.getNext()) {
-      //current.displayShipment();
-      current = current.getPrev();
-
-    }
-    System.out.println("");
-  }
-
-  /**
-   * check if the linked list is empty
-   * @return boolean
-   */
-  public boolean isEmpty() {
-    return (head.getNext() == null);
-  }
-
-  /**
-   * delete the first shipment from the linked list
-   * @return Shipment
-   */
-
-  /*  public Shipment deleteFirst()
-    {
-      boolean isDiagnostic=false;
-      Shipment temp = head;
-
-      //check for empty list
-      if (isEmpty())
-        return null;           //return null, if empty
-
-      if(head.getNext() == null)    //if only one item in linked list
-        tail = null;            //null <- last
-      else
-        head.getNext().getPrev() = null;  //null <- old next
-      head = head.getNext();       //first -> old next
-      temp.getNext() = null;         //ground pointer
-      countShipments--;            //decrement number of shipments
-      if (isDiagnostic)
-         System.out.println("deleted "+ temp.getShipNo());
-      return temp;              //return deleted node
-    }
-   */
-  /**
-   * delete the last shipment from the linked list
-   * @return Shipment
-   */
-
-  /*  public Shipment deleteLast()
-    {
-      boolean isDiagnostic=false;
-      Shipment temp = last;
-      //check for empty list
-      if (isEmpty())
-        return null;            //if empty, return null
-
-      if(first.next == null)    //if only one item in linked list
-        first = null;           //null <- first
-      else
-        last.prev.next = null;  //old prev -> null
-      last = last.prev;         //old prev -> last
-      temp.next = null;         //ground pointer
-      countShipments--;            //decrement number of shipments
-      if (isDiagnostic)
-         System.out.println("deleted "+ temp.getShipNo());
-      return temp;              //return deleted node
-    }
-
-   */
-
-}

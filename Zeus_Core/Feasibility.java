@@ -1,106 +1,53 @@
-package edu.sru.thangiah.zeus.core;
+/*   1:    */ package edu.sru.thangiah.zeus.core;
+/*   2:    */ 
+/*   3:    */ import java.io.PrintStream;
+/*   4:    */ import java.io.Serializable;
+/*   5:    */ 
+/*   6:    */ public class Feasibility
+/*   7:    */   implements Serializable, Cloneable
+/*   8:    */ {
+/*   9:    */   protected double maxDuration;
+/*  10:    */   protected double maxDistance;
+/*  11:    */   protected double maxTravelTime;
+/*  12:    */   protected double maxCapacity;
+/*  13:    */   protected NodesLinkedList thisRoute;
+/*  14:    */   
+/*  15:    */   public Feasibility() {}
+/*  16:    */   
+/*  17:    */   public Feasibility(NodesLinkedList thisR)
+/*  18:    */   {
+/*  19: 36 */     this.thisRoute = thisR;
+/*  20:    */   }
+/*  21:    */   
+/*  22:    */   public Feasibility(int maxd, int maxq, NodesLinkedList thisR)
+/*  23:    */   {
+/*  24: 49 */     this.thisRoute = thisR;
+/*  25:    */   }
+/*  26:    */   
+/*  27:    */   public boolean isFeasible()
+/*  28:    */   {
+/*  29: 77 */     System.out.println("Error: Is Feasible is being called from the Feasibility class");
+/*  30: 78 */     return false;
+/*  31:    */   }
+/*  32:    */   
+/*  33:    */   public void setRoute(NodesLinkedList nodes)
+/*  34:    */   {
+/*  35: 88 */     this.thisRoute = nodes;
+/*  36:    */   }
+/*  37:    */   
+/*  38:    */   public Object clone()
+/*  39:    */   {
+/*  40: 99 */     Feasibility clonedFeasibility = new Feasibility();
+/*  41:    */     
+/*  42:101 */     clonedFeasibility.maxCapacity = this.maxCapacity;
+/*  43:102 */     clonedFeasibility.maxDuration = this.maxDuration;
+/*  44:    */     
+/*  45:104 */     return clonedFeasibility;
+/*  46:    */   }
+/*  47:    */ }
 
-/**
- * This class will determine at any time if the route is feasible.
- * <p>Title: Feasibility</p>
- * <p>Description: This class will determine at any time if the route is
- * feasible. The purpose of this class is to abstract out the feasibility
- * of the routes so they can be easily modified.</p>
- * <p>Copyright: Copyright (c) 2005</p>
- * <p>Company: </p>
- * @author Sam R. Thangiah
- * @version 2.0
-
+
+/* Location:           E:\DrSam PVRP Workspace\zeuscore\
+ * Qualified Name:     edu.sru.thangiah.zeus.core.Feasibility
+ * JD-Core Version:    0.7.0.1
  */
-public class Feasibility
-    implements java.io.Serializable, java.lang.Cloneable {
-  protected double maxDuration;
-  protected double maxDistance;
-  protected double maxTravelTime;
-  protected double maxCapacity;
-  protected NodesLinkedList thisRoute;
-
-  /**
-   * Default constructor
-   */
-  public Feasibility() {
-
-  }
-
-  /**
-   * Constructor for the feasibilty, will send the constants as well as a
-   * pointer to the route that will be checked
-   * @param thisR the route
-   */
-  public Feasibility(NodesLinkedList thisR) {
-    thisRoute = thisR;
-  }
-
-  /**
-   * Constructor for the feasibilty, will send the constants as well as a
-   * pointer to the route that will be checked
-   * @param maxd max duration
-   * @param maxq max capacity
-   * @param thisR the route
-   */
-  public Feasibility(int maxd, int maxq, NodesLinkedList thisR) {
-    //maxDuration = maxd;
-    //maxCapacity = maxq;
-    thisRoute = thisR;
-  }
-
-  /**
-   * This function checks the feasibility of the route.
-   * @return true if feasible, false if not.
-   */
- /* public boolean isFeasible() {
-    double currentDistance;
-    double currentDemand;
-
-    currentDistance = ProblemInfo.nodesLLLevelCostF.getTotalDistance(thisRoute);
-    currentDemand = ProblemInfo.nodesLLLevelCostF.getTotalDemand(thisRoute);
-
-    if ( (currentDistance <= maxDuration) && (currentDemand <= maxCapacity)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }*/
-
- /**
-   * This function checks the feasibility of the route.
-   * This has to be defined by the inheriting class
-   * @return true if feasible, false if not.
-   */
-public boolean isFeasible() {
-  System.out.println("Error: Is Feasible is being called from the Feasibility class");
-  return false;
-
-  }
-
-
-  /**
-   * Sets the route for this feasibility class
-   * @param nodes NodesLinkedList
-   */
-  public void setRoute(NodesLinkedList nodes) {
-    thisRoute = nodes;
-  }
-
-  /**
-   * Creates a copy of the feasibility object.
-   * This will not create a clone of the nodes linked list, because it will
-   * create infinate recursion in the nodes linked list's clone() funciton.
-   * The setRoute() function must be used after cloning.
-   * @return Object feasibility clone
-   */
-  public Object clone() {
-    Feasibility clonedFeasibility = new Feasibility();
-
-    clonedFeasibility.maxCapacity = this.maxCapacity;
-    clonedFeasibility.maxDuration = this.maxDuration;
-
-    return clonedFeasibility;
-  }
-}

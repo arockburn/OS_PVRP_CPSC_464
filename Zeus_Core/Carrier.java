@@ -1,223 +1,87 @@
-package edu.sru.thangiah.zeus.core;
+/*   1:    */ package edu.sru.thangiah.zeus.core;
+/*   2:    */ 
+/*   3:    */ import java.io.Serializable;
+/*   4:    */ 
+/*   5:    */ public class Carrier
+/*   6:    */   implements Serializable, Cloneable
+/*   7:    */ {
+/*   8:    */   protected Carrier prev;
+/*   9:    */   protected Carrier next;
+/*  10:    */   protected int index;
+/*  11:    */   protected String carrierCode;
+/*  12:    */   protected String carrierName;
+/*  13:    */   protected boolean sendByFax;
+/*  14:    */   protected boolean sendByEmail;
+/*  15:    */   protected String areaCode;
+/*  16:    */   protected String faxNumber;
+/*  17:    */   protected String emailAddress;
+/*  18:    */   protected String safetyRating;
+/*  19:    */   protected String safetyRatingDate;
+/*  20:    */   protected String contractDate;
+/*  21:    */   protected String insEndDate;
+/*  22:    */   protected String initBaud;
+/*  23:    */   protected String normalBaud;
+/*  24:    */   protected double xCoord;
+/*  25:    */   protected double yCoord;
+/*  26:    */   protected String addressOne;
+/*  27:    */   protected String addressTwo;
+/*  28:    */   protected String state;
+/*  29:    */   protected String zip;
+/*  30:    */   
+/*  31:    */   public Carrier getPrev()
+/*  32:    */   {
+/*  33: 96 */     return this.prev;
+/*  34:    */   }
+/*  35:    */   
+/*  36:    */   public Carrier getNext()
+/*  37:    */   {
+/*  38:104 */     return this.next;
+/*  39:    */   }
+/*  40:    */   
+/*  41:    */   public void setPrev(Carrier s)
+/*  42:    */   {
+/*  43:112 */     this.prev = s;
+/*  44:    */   }
+/*  45:    */   
+/*  46:    */   public void setNext(Carrier s)
+/*  47:    */   {
+/*  48:120 */     this.next = s;
+/*  49:    */   }
+/*  50:    */   
+/*  51:    */   public int getIndex()
+/*  52:    */   {
+/*  53:128 */     return this.index;
+/*  54:    */   }
+/*  55:    */   
+/*  56:    */   public double getXCoord()
+/*  57:    */   {
+/*  58:136 */     return this.xCoord;
+/*  59:    */   }
+/*  60:    */   
+/*  61:    */   public double getYCoord()
+/*  62:    */   {
+/*  63:144 */     return this.yCoord;
+/*  64:    */   }
+/*  65:    */   
+/*  66:    */   public Object clone()
+/*  67:    */   {
+/*  68:170 */     Carrier clonedShipment = new Carrier();
+/*  69:    */     
+/*  70:    */ 
+/*  71:173 */     clonedShipment.index = this.index;
+/*  72:    */     
+/*  73:    */ 
+/*  74:    */ 
+/*  75:    */ 
+/*  76:178 */     clonedShipment.xCoord = this.xCoord;
+/*  77:179 */     clonedShipment.yCoord = this.yCoord;
+/*  78:    */     
+/*  79:181 */     return clonedShipment;
+/*  80:    */   }
+/*  81:    */ }
 
-import java.text.DecimalFormat;
-
-/**
- * Stores all of the information about a Carrier.
- * Title: Shipment
- * Description: This class stores all of the information about a Carrier.
- * Copyright: Copyright (c) 2014
- * <p>Copyright: Copyright (c) 2014</p>
- * <p>Company: </p>
- * @author Sam R. Thangiah
- * @version 2.0
+
+/* Location:           E:\DrSam PVRP Workspace\zeuscore\
+ * Qualified Name:     edu.sru.thangiah.zeus.core.Carrier
+ * JD-Core Version:    0.7.0.1
  */
-public class Carrier
-    implements java.io.Serializable, java.lang.Cloneable {
-  protected Carrier prev;
-  protected Carrier next;
-  protected int index;
-  
-  
-  //Added 3/16/2014
-  //Carrier information
-  protected String carrierCode;
-  protected String carrierName;
-  protected boolean sendByFax;
-  protected boolean sendByEmail;
-  protected String areaCode;
-  protected String faxNumber;
-  protected String emailAddress;
-  
-  protected String safetyRating;
-  protected String safetyRatingDate;
-  protected String contractDate;
-  protected String insEndDate;
-  protected String initBaud;
-  protected String normalBaud;
-  
-  //address
-  protected double xCoord; //latitude
-  protected double yCoord; //longitude
-  protected String addressOne;
-  protected String addressTwo;
-  protected String state;
-  protected String zip;
-
-
-  /**
-   * Default constructor
-   */
-  /*public Shipment(){
-       }*/
-
-  /**
-   * Constructor
-   * @param i index
-   * @param x x-coordinate
-   * @param y y-coordinate
-   * @param q demand
-   * @param d service time
-   * @param t truck type
-   * @param p pick up point name
-   */
-  /*public Shipment(int i, float x, float y, float q, float d, String t,
-      String p) {
-      index = i;
-      xCoord = x;
-      yCoord = y;
-      demand = q;
-      serviceTime = d;
-      truckTypeNeeded = t;
-      pickUpPointName = p;
-       }*/
-
-  /**
-   * Constructor
-   * @param ind index
-   * @param x x-coordinate
-   * @param y y-coordinate
-   * @param q demand
-   * @param d service time
-   * @param e frequency
-   * @param comb number of combination
-   * @param vComb list of combinations (vector)
-   * @param cuComb number of combinations (matrix)
-   */
-
-
-  
-
-  /**
-   * Returns the previous shipment in the shipment linked list
-   * @return previous shipment
-   */
-  public Carrier getPrev() {
-    return prev;
-  }
-
-  /**
-   * Returns the next shipment in the shipment linked list
-   * @return next shipment
-   */
-  public Carrier getNext() {
-    return next;
-  }
-
-  /**
-   * Sets the previous shipment in the shipment linked list
-   * @param s new previous shipment
-   */
-  public void setPrev(Carrier s) {
-    prev = s;
-  }
-
-  /**
-   * Sets the next shipment in the shipment linked list
-   * @param s new next shipment
-   */
-  public void setNext(Carrier s) {
-    next = s;
-  }
-
-  /**
-   * Returns the shipment's index
-   * @return shipment index
-   */
-	public int getIndex() {
-    return index;
-  }
-
-  /**
-   * Returns the shipment's x-coordinate
-   * @return x-coordinate
-   */
-  public double getXCoord() {
-    return xCoord;
-  }
-
-  /**
-   * Returns the shipment's y-coordinate
-   * @return y-coordinate
-   */
-  public double getYCoord() {
-    return yCoord;
-  }
-
-
-
-  /**
-   * Returns a formatted string of the shipment's information
-   * @return shipment string
-   */
-  /*public String toString() {
-    DecimalFormat df = new DecimalFormat("000");
-
-    return "#" + df.format(index) + " pup=" + pickUpPointName + " q=" +
-        demand + " (" + xCoord + "," + yCoord + ") serv=" + serviceTime +
-        " truck=" + truckTypeNeeded + " assigned=" + isAssigned;
-     }
-   */
-  /**
-   * This will make a copy of this shipment and return it. It will not create
-   * a copy of the next and prev links, this is the responsibility of the
-   * shipment linked list clone() method. This will also not copy the temp
-   * demand and temp next variables, so the route containing this shipment
-   * must be fully expanded.
-   * @return Object clone
-   */
-  public Object clone() {
-    Carrier clonedShipment = new Carrier();
-
-    //clonedShipment.demand = this.demand;
-    clonedShipment.index = this.index;
-    //clonedShipment.isAssigned = this.isAssigned;
-    //clonedShipment.pickUpPointName = this.pickUpPointName;
-    //clonedShipment.serviceTime = this.serviceTime;
-    //clonedShipment.truckTypeNeeded = this.truckTypeNeeded;
-    clonedShipment.xCoord = this.xCoord;
-    clonedShipment.yCoord = this.yCoord;
-
-    return clonedShipment;
-  }
-
-  /**
-   * TDisplay the shipment information
-   */
-
-  /* public void displayShipment()
-   {
-      int i;
-      String s;
-
-      System.out.println("Shipment number is " + index);
-      System.out.println("  Vertex x is  " + xCoord);
-      System.out.println("  Vertex Y is  " + yCoord);
-      System.out.println("  Duration is  " + serviceTime);
-      System.out.println("  Demand is    " + demand);
-      System.out.println("  Frequency is " + frequency);
-      System.out.println("  Number of Combinations is " + noComb);
-      if (noComb > 0)
-      {
-         System.out.println("  The combinations are: ");
-
-         for (i = 0; i < noComb; i++) {
-            System.out.println("  " + visitComb[i]);
-         }
-      }
-      if(noComb > 0 && currentComb!=null)
-      {
-         System.out.println("  Current visit Comb: ");
-         for(int h=0; h<noComb;h++){
-            System.out.print("  ");
-            for(int k = 0;k < currentComb[h].length; k++){
-              s = Integer.toString(currentComb[h][k]);
-              System.out.print(s);
-            }
-            System.out.println(" ");
-          }
-          System.out.println("");
-      }
-    }
-   */
-}
