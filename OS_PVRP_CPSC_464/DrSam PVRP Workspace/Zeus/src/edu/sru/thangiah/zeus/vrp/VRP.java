@@ -110,7 +110,7 @@ public class VRP {
     //Vector emptyVector = new Vector(0);
     //VRPZeusGui gui = new VRPZeusGui(mainDepots, mainShipments, emptyVector);
 
-     ZeusGui guiPost = new ZeusGui(mainDepots, mainShipments);
+   //  ZeusGui guiPost = new ZeusGui(mainDepots, mainShipments);
 
   } //VRP ENDS HERE*******************<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //**********************>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

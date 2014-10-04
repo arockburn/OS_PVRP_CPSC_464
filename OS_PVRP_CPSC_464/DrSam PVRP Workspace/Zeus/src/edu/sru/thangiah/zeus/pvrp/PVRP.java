@@ -2,14 +2,18 @@ package edu.sru.thangiah.zeus.pvrp;
 
 import java.io.*;
 import java.util.*;
+
 import edu.sru.thangiah.zeus.core.*;
-import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList.PVRPShipmentLinkedList;
 import edu.sru.thangiah.zeus.pvrp.pvrpqualityassurance.*;
+import edu.sru.thangiah.zeus.pvrp.pvrpnodeslinkedlist.*;
 import edu.sru.thangiah.zeus.gui.*;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList.*;
 
 
 /**
@@ -74,17 +78,17 @@ public class PVRP {
 		}
 
 //		Set up the shipment selection type
-//		ProblemInfo.selectShipType = new ClosestEuclideanDistToDepot();
-//		Settings.printDebug(Settings.COMMENT,ClosestEuclideanDistToDepot.WhoAmI());
-//		ProblemInfo.selectShipType = new SmallestPolarAngleToDepot();
+		ProblemInfo.selectShipType = new PVRPNextNodeHeuristics();
+		Settings.printDebug(Settings.COMMENT,PVRPNextNodeHeuristics.WhoAmI());
+		//ProblemInfo.selectShipType = new SmallestPolarAngleToDepot();
 //		Settings.printDebug(Settings.COMMENT, SmallestPolarAngleToDepot.WhoAmI());
-//		ProblemInfo.selectShipType = new SmallestPolarAngleShortestDistToDepot();
+		//ProblemInfo.selectShipType = new SmallestPolarAngleShortestDistToDepot();
 //		Settings.printDebug(Settings.COMMENT,SmallestPolarAngleShortestDistToDepot.WhoAmI());
 //
 //		set up the shipment insertion type
-//		ProblemInfo.insertShipType = new LinearGreedyInsertShipment();
-//		Settings.printDebug(Settings.COMMENT, LinearGreedyInsertShipment.WhoAmI());
-//
+		ProblemInfo.insertShipType = new PVRPInitialInsertShipment();
+		Settings.printDebug(Settings.COMMENT, PVRPInitialInsertShipment.WhoAmI());
+
 		//Capture the CPU time required for solving the problem
 		startTime = System.currentTimeMillis();
 		// captures the initial information on solving the problem
@@ -379,7 +383,7 @@ public class PVRP {
 
 		}
 
-		System.out.println("MAX_DIS\t" + D + "\tQ\t" + Q);
+		System.out.println("MAX_DIS\t" + D + "\tMAX _CAP\t" + Q);
 
 
 
@@ -414,7 +418,6 @@ public class PVRP {
 
 		PVRPDepot depot = new PVRPDepot(nodeNumber, xCoordinates, yCoordinates); //n is the number of customers
 		mainDepots.insertDepotLast(depot);
-		mainDepots.setHead(depot);
 
 		//Each depot has a mainTrucks. The different truck types available are
 		//inserted into the mainTrucks type. For the VRP, there is only one truck type
@@ -427,18 +430,11 @@ public class PVRP {
 
 		row = (Row) rowIterator.next();        //get the next row
 		cellIterator = row.cellIterator();    //an iterator for columns
-		boolean firstNode = true;
 
 
 		while(row.getRowNum() > t + 1 && rowIterator.hasNext()){
 			cellCount = 0;
 			int listIndex = 0;
-			if(!firstNode){
-				row = (Row) rowIterator.next();        //get the next row
-				cellIterator = row.cellIterator();    //an iterator for columns
-			}
-			else
-				firstNode = false;
 
 			while (cellIterator.hasNext())                //while we have another cell
 			{
@@ -482,27 +478,19 @@ public class PVRP {
 			for (int l = 0; l < numberCombinations; l++)
 			{
 				currentComb[l] = mainShipments.getCurrentComb(list, l, t); // current visit comb
-				//mainShipments.
 				//insert the customer data into the linked list
 			}
-			PVRPShipment newShip = new PVRPShipment(nodeNumber, xCoordinates, yCoordinates, DUMMY, demandQ, frequency, numberCombinations, list, currentComb);
-			
-			
-			if(nodeNumber == 1){
-				//set head
-				mainShipments.insertLast(newShip);
-				mainShipments.setHead(newShip);
-			}
-			else{
-				//set tail to latest entry
-				mainShipments.insertLast(newShip);
-			}
-			
-			if(!rowIterator.hasNext()){
-				mainShipments.setTail(newShip);
-			}
-			
+
+            Integer custType = (Integer) custTypes.elementAt(0);
+            mainShipments.insertShipment(nodeNumber, xCoordinates, yCoordinates, DUMMY, demandQ, frequency, numberCombinations, list, currentComb);
+
+
+			row = (Row) rowIterator.next();        //get the next row
+			cellIterator = row.cellIterator();    //an iterator for columns
+
 		}
+
+
 
 
 		return 1;

@@ -1,30 +1,21 @@
-//PVRP PROBLEM
-//CPSC 464
-//AARON ROCKBURN; JOSHUA SARVER
-
-//***********	DECLARATION_S_OTHER	**********************************************************************************\\
-// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-//PACKAGE TITLE
 package edu.sru.thangiah.zeus.pvrp;
 
-//IMPORTS
+//import the parent class
 import edu.sru.thangiah.zeus.core.Attributes;
-import java.io.Serializable;
 
+/**
+ *
+ * <p>Title:</p>
+ * <p>Description: </p>
+ * <p>Copyright: Copyright (c) 2005</p>
+ * <p>Company: </p>
+ * @author Sam R. Thangiah
+ * @version 2.0
+ */
 
-
-
-
-//CLASS
-public class PVRPAttributes extends Attributes
-		implements Serializable, Cloneable
-{
-
-	//***********	DECLARATION_S	**********************************************************************************\\
-	public PVRPAttributes()
-	{
-	}
+public class PVRPAttributes
+		extends Attributes
+		implements java.io.Serializable, java.lang.Cloneable {
+public PVRPAttributes() {
+}
 }

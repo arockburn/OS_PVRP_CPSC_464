@@ -1,20 +1,51 @@
-//PVRP PROBLEM
-//CPSC 464
-//AARON ROCKBURN; JOSHUA SARVER
-
-//***********	DECLARATION_S_OTHER	**********************************************************************************\\
-// FUNCTION_START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-//PACKAGE TITLE
 package edu.sru.thangiah.zeus.pvrp;
 
+//import the parent class
 import edu.sru.thangiah.zeus.core.TruckType;
 
+/**
+ *
+ * <p>Title:</p>
+ * <p>Description: </p>
+ * <p>Copyright: Copyright (c) 2005</p>
+ * <p>Company: </p>
+ * @author Sam R. Thangiah
+ * @version 2.0
+ */
 
-public class PVRPTruckType extends TruckType {
-public PVRPTruckType(int i, float maxDistance, float maxCapacity, String serviceType) {
-
+public class PVRPTruckType
+		extends TruckType
+		implements java.io.Serializable, java.lang.Cloneable {
+public PVRPTruckType() {
 }
+
+/**
+ * Constructor
+ * @param N type number
+ * @param D max duration
+ * @param Q max capacity
+ * @param s type of customers the truck can service
+ */
+public PVRPTruckType(int N, float D, float Q, String s) {
+	setTruckNo(N);
+	setServiceType(s);
+
+	if (D == 0) {
+		setMaxDuration(Integer.MAX_VALUE);
+	}
+	else {
+		setMaxDuration(D);
+	}
+
+	if (Q == 0) {
+		setMaxCapacity(Integer.MAX_VALUE);
+	}
+	else {
+		setMaxCapacity(Q);
+	}
+
+	setFixedCost(getMaxCapacity());
+	setVariableCost((double) getMaxCapacity() / 1000);
+}
+
 }

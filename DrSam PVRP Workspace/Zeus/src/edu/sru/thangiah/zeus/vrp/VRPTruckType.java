@@ -27,25 +27,25 @@ public class VRPTruckType
    * @param s type of customers the truck can service
    */
   public VRPTruckType(int N, float D, float Q, String s) {
-    truckNo = N;
-    serviceType = s;
+    setTruckNo(N);
+    setServiceType(s);
 
     if (D == 0) {
-      maxDuration = Integer.MAX_VALUE;
+      setMaxDuration(Integer.MAX_VALUE);
     }
     else {
-      maxDuration = D;
+    	setMaxDuration(D);
     }
 
     if (Q == 0) {
-      maxCapacity = Integer.MAX_VALUE;
+      setMaxCapacity(Integer.MAX_VALUE);
     }
     else {
-      maxCapacity = Q;
+      setMaxCapacity(Q);
     }
 
-    fixedCost = maxCapacity;
-    variableCost = (double) maxCapacity / 1000;
+    setFixedCost(getMaxCapacity());
+    setVariableCost((double) getMaxCapacity() / 1000);
   }
 
 }

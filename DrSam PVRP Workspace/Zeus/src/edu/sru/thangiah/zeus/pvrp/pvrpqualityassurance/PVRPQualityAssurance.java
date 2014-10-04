@@ -13,7 +13,8 @@ package edu.sru.thangiah.zeus.pvrp.pvrpqualityassurance;
 
 //IMPORTS
 import edu.sru.thangiah.zeus.pvrp.PVRPDepotLinkedList;
-import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList.PVRPShipmentLinkedList;
+import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList;
+import edu.sru.thangiah.zeus.pvrp.PVRPShipmentLinkedList.*;
 import edu.sru.thangiah.zeus.qualityassurance.QualityAssurance;
 
 
